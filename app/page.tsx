@@ -2,6 +2,7 @@
 
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import Features from "@/components/Features";
 import { useTheme } from "next-themes";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
@@ -29,9 +30,11 @@ export default function Home() {
         >
           <Hero />
           
+          <Features />
+          
           {/* Spacer for other sections */}
-          <section className="py-20">
-            <div className="container mx-auto px-4">
+          <section id="menu" className="py-20">
+            <div className="container-custom">
               {/* Add more sections here */}
             </div>
           </section>

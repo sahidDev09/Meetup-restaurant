@@ -55,6 +55,7 @@ export default function Hero() {
           priority 
         />
         <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/80 to-transparent transition-colors duration-1000" />
+        <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-background via-background/50 to-transparent transition-colors duration-1000" />
       </div>
 
       <div className="container-custom relative z-10 w-full">
@@ -118,15 +119,19 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 }}
-                className="flex flex-wrap gap-6 pt-4"
+                className="flex flex-wrap gap-4 pt-4"
               >
-                <div className="flex items-center gap-2 text-muted-foreground">
-                  <Clock className="h-5 w-5 text-primary" />
-                  <span className="text-sm">30 min delivery</span>
+                <div className="flex items-center gap-3 bg-card/50 backdrop-blur-sm px-5 py-3 rounded-2xl border border-border/50 hover:border-primary/30 transition-colors duration-300 group/stat">
+                  <div className="p-2 bg-primary/10 rounded-xl group-hover/stat:bg-primary/20 transition-colors duration-300">
+                    <Clock className="h-4 w-4 text-primary" />
+                  </div>
+                  <span className="text-sm font-semibold text-foreground/90">30 min delivery</span>
                 </div>
-                <div className="flex items-center gap-2 text-muted-foreground">
-                  <MapPin className="h-5 w-5 text-primary" />
-                  <span className="text-sm">Free delivery over ৳500</span>
+                <div className="flex items-center gap-3 bg-card/50 backdrop-blur-sm px-5 py-3 rounded-2xl border border-border/50 hover:border-primary/30 transition-colors duration-300 group/stat">
+                  <div className="p-2 bg-primary/10 rounded-xl group-hover/stat:bg-primary/20 transition-colors duration-300">
+                    <MapPin className="h-4 w-4 text-primary" />
+                  </div>
+                  <span className="text-sm font-semibold text-foreground/90">Free delivery over ৳500</span>
                 </div>
               </motion.div>
             </motion.div>

@@ -1,12 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { ShoppingBag, Phone, MapPin } from "lucide-react";
+import { ShoppingBag, MapPin } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 
 export default function Navbar() {
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border transition-colors duration-300">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md transition-colors duration-300">
       <div className="container-custom">
         <div className="flex justify-between items-center h-20">
           {/* Logo */}

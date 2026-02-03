@@ -17,17 +17,26 @@ export const metadata: Metadata = {
   description: "Experience the finest culinary delights delivered right to your doorstep. Fresh ingredients, crafted with love.",
 };
 
+import { ThemeProvider } from "@/components/ThemeProvider";
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`${outfit.variable} ${inter.variable} font-inter antialiased bg-black text-white`}
+        className={`${outfit.variable} ${inter.variable} font-inter antialiased`}
       >
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -1,28 +1,69 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-primary: #FF4D1C;
-  --color-primary-foreground: #ffffff;
-  --color-background: #000000;
-  --color-foreground: #ffffff;
-  --color-muted: #1a1a1a;
-  --color-muted-foreground: #a1a1aa;
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
   --font-display: var(--font-outfit);
 }
 
 :root {
+  --background: #ffffff;
+  --foreground: #000000;
+  --primary: #FF4D1C;
+  --primary-foreground: #ffffff;
+  --muted: #f4f4f5;
+  --muted-foreground: #71717a;
+  --card: #ffffff;
+  --card-foreground: #000000;
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #FF4D1C;
+  --secondary: #f4f4f5;
+  --secondary-foreground: #18181b;
+  --accent: #f4f4f5;
+  --accent-foreground: #18181b;
+  --destructive: #ef4444;
+  --destructive-foreground: #fafafa;
+}
+
+.dark {
   --background: #000000;
   --foreground: #ffffff;
   --primary: #FF4D1C;
   --primary-foreground: #ffffff;
   --muted: #1a1a1a;
   --muted-foreground: #a1a1aa;
+  --card: #0a0a0a;
+  --card-foreground: #ffffff;
+  --border: #27272a;
+  --input: #27272a;
+  --ring: #FF4D1C;
+  --secondary: #1a1a1a;
+  --secondary-foreground: #fafafa;
+  --accent: #1a1a1a;
+  --accent-foreground: #fafafa;
+  --destructive: #7f1d1d;
+  --destructive-foreground: #fafafa;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-outfit), sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 @layer utilities {

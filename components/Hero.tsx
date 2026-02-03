@@ -11,12 +11,10 @@ import gsap from "gsap";
 export default function Hero() {
   const { theme, resolvedTheme } = useTheme();
   const headingRef = useRef<HTMLHeadingElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [mounted, setMounted] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null)
+  const [mounted] = useState(false);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+ 
   
   const heroImage = mounted && resolvedTheme === "dark" 
     ? "/assests/meetup_hero_black.png" 

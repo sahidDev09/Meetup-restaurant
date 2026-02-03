@@ -31,10 +31,7 @@ export default function Navbar() {
               <MapPin className="w-4 h-4 mr-2" />
               Track Order
             </button>
-            <div className="hidden sm:flex items-center text-foreground/80">
-              <Phone className="w-5 h-5 mr-2 text-primary" />
-              <span className="font-medium font-mono text-sm">(123) 456-7890</span>
-            </div>
+           
             <button className="p-2.5 text-foreground/80 hover:bg-muted rounded-full transition-all relative">
               <ShoppingBag className="w-6 h-6" />
               <span className="absolute top-2 right-2 w-2 h-2 bg-primary rounded-full"></span>

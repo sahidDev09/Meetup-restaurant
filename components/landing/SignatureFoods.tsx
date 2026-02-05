@@ -18,17 +18,6 @@ const signatureFoods = [
     border: "border-rose-500/20",
   },
   {
-    id: 2,
-    name: "Signature Truffle Burger",
-    description: "Gourmet beef patty with black truffle aioli, melted aged cheddar, and fresh arugula on a toasted brioche bun.",
-    price: 18.99,
-    rating: 4.9,
-    image: "/assests/signature_burger.png",
-    gradient: "from-orange-500 to-rose-500",
-    bgGradient: "from-orange-500/10 to-rose-500/10",
-    border: "border-orange-500/20",
-  },
-  {
     id: 3,
     name: "Honey Glazed Salmon",
     description: "Pan-seared Atlantic salmon glazed with organic honey and ginger, served with roasted seasonal vegetables.",
@@ -39,6 +28,18 @@ const signatureFoods = [
     bgGradient: "from-emerald-500/10 to-teal-500/10",
     border: "border-emerald-500/20",
   },
+  {
+    id: 2,
+    name: "Signature Truffle Burger",
+    description: "Gourmet beef patty with black truffle aioli, melted aged cheddar, and fresh arugula on a toasted brioche bun.",
+    price: 18.99,
+    rating: 4.9,
+    image: "/assests/signature_burger.png",
+    gradient: "from-orange-500 to-rose-500",
+    bgGradient: "from-orange-500/10 to-rose-500/10",
+    border: "border-orange-500/20",
+  },
+  
 ];
 
 export default function SignatureFoods() {
@@ -80,7 +81,7 @@ export default function SignatureFoods() {
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-6">
           {signatureFoods.map((food, index) => (
             <motion.div
               key={food.id}

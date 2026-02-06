@@ -3,11 +3,12 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, CheckCircle2, ClipboardIcon } from "lucide-react";
-import { useCart } from "@/context/CartContext";
+import { useCart, CartItem } from "@/context/CartContext";
 import { Button } from "@/components/ui/button";
+import { supabase } from "@/lib/supabase";
 
 export default function CheckoutModal() {
-  const { isCheckoutOpen, setIsCheckoutOpen, clearCart, totalPrice, orderId } = useCart();
+  const { isCheckoutOpen, setIsCheckoutOpen, clearCart, totalPrice, orderId, cart } = useCart();
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -16,16 +17,47 @@ export default function CheckoutModal() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      // 1. Insert order into 'orders' table
+      const { error: orderError } = await supabase
+        .from('orders')
+        .insert({
+          order_id: orderId,
+          customer_name: formData.name,
+          phone: formData.phone,
+          address: formData.address,
+          total_price: totalPrice + 60,
+        });
+
+      if (orderError) throw orderError;
+
+      // 2. Insert order items into 'order_items' table
+      const orderItems = cart.map((item: CartItem) => ({
+        order_id: orderId,
+        product_id: item.id,
+        product_name: item.name,
+        price: item.price,
+        quantity: item.quantity
+      }));
+
+      const { error: itemsError } = await supabase
+        .from('order_items')
+        .insert(orderItems);
+
+      if (itemsError) throw itemsError;
+
       setIsSuccess(true);
       clearCart();
-    }, 1500);
+    } catch (error) {
+      console.error("Error submitting order:", error);
+      alert("There was an error placing your order. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const closeModal = () => {

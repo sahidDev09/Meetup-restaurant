@@ -5,17 +5,17 @@ import Footer from "@/components/Footer";
 import MenuContent from "@/components/menu/MenuContent";
 import { useTheme } from "next-themes";
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
+import React, { useSyncExternalStore } from "react";
 
 export default function MenuPage() {
   const { theme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+  const isClient = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) return null;
+  if (!isClient) return null;
 
   return (
     <div className="min-h-screen overflow-x-hidden pt-20">

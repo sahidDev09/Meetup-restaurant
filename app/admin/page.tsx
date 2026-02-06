@@ -23,7 +23,7 @@ export default function AdminPage() {
   // If already authenticated, we redirect. While checking, show nothing.
   if (isAuthenticated === null || isAuthenticated === true) {
     return (
-      <div className="min-h-screen bg-[#fafafa] flex items-center justify-center">
+      <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="w-8 h-8 border-4 border-orange-500/20 border-t-orange-500 rounded-full animate-spin" />
       </div>
     );
@@ -31,7 +31,7 @@ export default function AdminPage() {
 
   // If not authenticated, show the login modal
   return (
-    <div className="min-h-screen bg-[#fafafa]">
+    <div className="min-h-screen bg-background">
       <AdminLoginModal />
     </div>
   );

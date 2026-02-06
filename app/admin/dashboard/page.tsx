@@ -48,7 +48,7 @@ const data = [
 ];
 
 export default function DashboardPage() {
-  const { theme } = useTheme();
+  const { resolvedTheme } = useTheme();
   const isClient = useSyncExternalStore(
     () => () => {},
     () => true,
@@ -57,29 +57,29 @@ export default function DashboardPage() {
 
   if (!isClient) return null;
 
-  const isDark = theme === "dark";
+  const isDark = resolvedTheme === "dark";
 
   return (
     <div className="space-y-8 font-outfit">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-black text-gray-900 dark:text-white">Dashboard</h1>
-          <p className="text-gray-500 dark:text-gray-400 mt-1">Welcome back! Here&apos;s what&apos;s happening.</p>
+          <h1 className="text-3xl font-black text-foreground">Dashboard</h1>
+          <p className="text-muted-foreground mt-1">Welcome back! Here&apos;s what&apos;s happening.</p>
         </div>
         
         <div className="flex flex-wrap items-center gap-3">
-          <div className="flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-300 shadow-sm transition-colors">
+          <div className="flex items-center gap-2 px-4 py-2.5 bg-card border border-border rounded-xl text-sm font-medium text-muted-foreground shadow-sm transition-colors">
             <Calendar size={16} />
             Jan 31 - Feb 07, 2026
           </div>
-          <div className="flex bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-xl shadow-sm overflow-hidden transition-colors">
+          <div className="flex bg-card border border-border rounded-xl shadow-sm overflow-hidden transition-colors">
             {["Today", "7 Days", "30 Days"].map((period) => (
-              <button key={period} className="px-4 py-2.5 text-xs font-bold text-gray-400 dark:text-gray-500 hover:text-gray-900 dark:hover:text-gray-100 transition-colors border-r last:border-r-0 border-gray-100 dark:border-slate-800">
+              <button key={period} className="px-4 py-2.5 text-xs font-bold text-muted-foreground/60 hover:text-foreground transition-colors border-r last:border-r-0 border-border">
                 {period}
               </button>
             ))}
           </div>
-          <button className="flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-xl text-sm font-bold text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 shadow-sm transition-all">
+          <button className="flex items-center gap-2 px-4 py-2.5 bg-card border border-border rounded-xl text-sm font-bold text-muted-foreground hover:text-foreground shadow-sm transition-all">
             <Download size={16} />
             Export
           </button>
@@ -93,22 +93,22 @@ export default function DashboardPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.05 }}
-            className="p-6 bg-white dark:bg-slate-900 rounded-3xl border border-gray-100 dark:border-slate-800 shadow-sm hover:shadow-md transition-all relative overflow-hidden group"
+            className="p-6 bg-card rounded-3xl border border-border shadow-sm hover:shadow-md transition-all relative overflow-hidden group"
           >
             <div className={`w-12 h-12 ${stat.bg} ${stat.color} rounded-2xl flex items-center justify-center mb-4 transition-transform group-hover:scale-110`}>
               <stat.icon size={24} />
             </div>
             <div className="space-y-1">
-              <p className="text-2xl font-black text-gray-900 dark:text-white">{stat.value}</p>
-              <p className="text-xs font-medium text-gray-400 dark:text-gray-500 uppercase tracking-wider">{stat.label}</p>
+              <p className="text-2xl font-black text-foreground">{stat.value}</p>
+              <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">{stat.label}</p>
             </div>
           </motion.div>
         ))}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2 p-8 bg-white dark:bg-slate-900 rounded-[32px] border border-gray-100 dark:border-slate-800 shadow-sm transition-colors">
-          <h3 className="text-lg font-black text-gray-900 dark:text-white mb-8">Last 7 Days Sales</h3>
+        <div className="lg:col-span-2 p-8 bg-card rounded-[32px] border border-border shadow-sm transition-colors">
+          <h3 className="text-lg font-black text-foreground mb-8">Last 7 Days Sales</h3>
           <div className="h-[350px] w-full">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={data}>
@@ -118,28 +118,28 @@ export default function DashboardPage() {
                     <stop offset="95%" stopColor="#FF4D1C" stopOpacity={0}/>
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={isDark ? "#1e293b" : "#f1f1f1"} />
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={isDark ? "#27272a" : "#f1f1f1"} />
                 <XAxis 
                   dataKey="name" 
                   axisLine={false} 
                   tickLine={false} 
-                  tick={{ fill: '#94a3b8', fontSize: 12 }}
+                  tick={{ fill: isDark ? '#a1a1aa' : '#94a3b8', fontSize: 12 }}
                   dy={10}
                 />
                 <YAxis 
                   axisLine={false} 
                   tickLine={false} 
-                  tick={{ fill: '#94a3b8', fontSize: 12 }}
+                  tick={{ fill: isDark ? '#a1a1aa' : '#94a3b8', fontSize: 12 }}
                 />
                 <Tooltip 
                   contentStyle={{ 
                     borderRadius: '16px', 
-                    backgroundColor: isDark ? '#0f172a' : '#ffffff',
-                    border: 'none', 
+                    backgroundColor: isDark ? '#0a0a0a' : '#ffffff',
+                    border: '1px solid ' + (isDark ? '#27272a' : '#e2e8f0'), 
                     boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)',
-                    color: isDark ? '#f8fafc' : '#0f172a'
+                    color: isDark ? '#ffffff' : '#000000'
                   }}
-                  itemStyle={{ color: isDark ? '#f8fafc' : '#0f172a' }}
+                  itemStyle={{ color: isDark ? '#ffffff' : '#000000' }}
                 />
                 <Area 
                   type="monotone" 
@@ -154,16 +154,16 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        <div className="p-8 bg-white dark:bg-slate-900 rounded-[32px] border border-gray-100 dark:border-slate-800 shadow-sm flex flex-col items-center justify-center text-center transition-colors">
-          <h3 className="text-lg font-black text-gray-900 dark:text-white mb-4 self-start">Order Status Distribution</h3>
+        <div className="p-8 bg-card rounded-[32px] border border-border shadow-sm flex flex-col items-center justify-center text-center transition-colors">
+          <h3 className="text-lg font-black text-foreground mb-4 self-start">Order Status Distribution</h3>
           <div className="flex-1 flex flex-col items-center justify-center space-y-4">
-            <div className="w-48 h-48 rounded-full border-8 border-gray-50 dark:border-slate-800 flex items-center justify-center relative transition-colors">
+            <div className="w-48 h-48 rounded-full border-8 border-muted flex items-center justify-center relative transition-colors">
                <div className="text-center">
-                <p className="text-3xl font-black text-gray-900 dark:text-white">0</p>
-                <p className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest">Total</p>
+                <p className="text-3xl font-black text-foreground">0</p>
+                <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Total</p>
                </div>
             </div>
-            <p className="text-sm text-gray-400 dark:text-gray-500 font-medium italic">No data available for the selected period.</p>
+            <p className="text-sm text-muted-foreground font-medium italic">No data available for the selected period.</p>
           </div>
         </div>
       </div>

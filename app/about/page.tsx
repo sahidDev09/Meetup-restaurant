@@ -40,7 +40,7 @@ export default function AboutPage() {
               </p>
             </div>
 
-            {/* Bento Grid Section */}
+            {/* Bento Grid Section */} 
             <BentoGrid />
 
             {/* FAQ Section */}

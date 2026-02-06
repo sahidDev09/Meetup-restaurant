@@ -8,12 +8,12 @@ import gsap from "gsap"
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme()
-  const [mounted, setMounted] = React.useState(false)
+  const isClient = React.useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  )
   const buttonRef = React.useRef<HTMLButtonElement>(null)
-
-  React.useEffect(() => {
-    setMounted(true)
-  }, [])
 
   const toggleTheme = (event: React.MouseEvent) => {
     const nextTheme = theme === "dark" ? "light" : "dark"
@@ -65,7 +65,7 @@ export function ThemeToggle() {
     })
   }
 
-  if (!mounted) return <div className="w-10 h-10" />
+  if (!isClient) return <div className="w-10 h-10" />
 
   return (
     <button

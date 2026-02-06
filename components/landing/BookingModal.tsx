@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, Calendar as CalendarIcon, Clock, Users, Utensils, ChevronLeft, ChevronRight } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import { supabase } from "@/lib/supabase";
 
 interface BookingModalProps {
   isOpen: boolean;
@@ -44,13 +45,36 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
 
   // ... (previous useEffect remains)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitted(true);
-    setTimeout(() => {
-      onClose();
-      setIsSubmitted(false);
-    }, 3000);
+    
+    try {
+      const { error } = await supabase
+        .from('bookings')
+        .insert({
+          customer_name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          guests: guests,
+          booking_date: date.toISOString().split('T')[0],
+          booking_time: time,
+          special_request: formData.specialRequest,
+        });
+
+      if (error) throw error;
+
+      setIsSubmitted(true);
+      setTimeout(() => {
+        onClose();
+        setIsSubmitted(false);
+        // Reset form
+        setStep(1);
+        setFormData({ name: "", email: "", phone: "", specialRequest: "" });
+      }, 3000);
+    } catch (error) {
+      console.error("Error submitting booking:", error);
+      alert("There was an error making your reservation. Please try again.");
+    }
   };
 
   const nextStep = () => setStep((s) => s + 1);

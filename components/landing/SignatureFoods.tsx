@@ -4,13 +4,14 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { Star, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useCart } from "@/context/CartContext";
 
 const signatureFoods = [
   {
     id: 1,
     name: "Prime Tomahawk Steak",
     description: "Dry-aged for 45 days, our signature steak is seasoned with sea salt and cracked pepper, served with roasted garlic.",
-    price: 45.00,
+    price: 1250,
     rating: 5.0,
     image: "/assests/signature_steak.png",
     gradient: "from-red-600 to-rose-700",
@@ -21,7 +22,7 @@ const signatureFoods = [
     id: 3,
     name: "Honey Glazed Salmon",
     description: "Pan-seared Atlantic salmon glazed with organic honey and ginger, served with roasted seasonal vegetables.",
-    price: 24.50,
+    price: 850,
     rating: 4.8,
     image: "/assests/signature_salmon.png",
     gradient: "from-emerald-500 to-teal-500",
@@ -32,7 +33,7 @@ const signatureFoods = [
     id: 2,
     name: "Signature Truffle Burger",
     description: "Gourmet beef patty with black truffle aioli, melted aged cheddar, and fresh arugula on a toasted brioche bun.",
-    price: 18.99,
+    price: 480,
     rating: 4.9,
     image: "/assests/signature_burger.png",
     gradient: "from-orange-500 to-rose-500",
@@ -43,6 +44,8 @@ const signatureFoods = [
 ];
 
 export default function SignatureFoods() {
+  const { addToCart } = useCart();
+
   return (
     <section id="signature-foods" className="py-24 bg-background relative overflow-hidden">
       {/* Background Decorative Elements */}
@@ -90,7 +93,7 @@ export default function SignatureFoods() {
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.5 }}
               whileHover={{ y: -12 }}
-              className={`group relative bg-gradient-to-br ${food.bgGradient} border ${food.border} rounded-[2.5rem] overflow-hidden hover:shadow-[0_20px_50px_rgba(0,0,0,0.1)] transition-all duration-500 backdrop-blur-sm`}
+              className={`group relative bg-gradient-to-br ${food.bgGradient} border ${food.border} rounded-[2.5rem] overflow-hidden hover:shadow-[0_20px_50px_rgba(0,0,0,0.1)] transition-all duration-500 backdrop-blur-sm flex flex-col h-full`}
             >
               <div className="relative h-64 w-full overflow-hidden">
                 <Image
@@ -105,7 +108,7 @@ export default function SignatureFoods() {
                 </div>
               </div>
 
-              <div className="p-8">
+              <div className="p-8 flex flex-col flex-grow">
                 <div className="flex justify-between items-start mb-3">
                   <h3 className="text-2xl font-bold font-display group-hover:text-primary transition-colors">
                     {food.name}
@@ -114,13 +117,19 @@ export default function SignatureFoods() {
                 <p className="text-muted-foreground text-sm mb-6 line-clamp-2 leading-relaxed h-12">
                   {food.description}
                 </p>
-                <div className="flex items-center justify-between">
-                  <span className="text-2xl font-bold text-foreground">
-                    ${food.price.toFixed(2)}
+                <div className="mt-auto flex items-center justify-between pt-4">
+                  <span className="text-2xl font-bold text-foreground tabular-nums">
+                    ৳{food.price}
                   </span>
                   
                   <Button 
                     variant="ghost"
+                    onClick={() => addToCart({
+                      id: food.id,
+                      name: food.name,
+                      price: food.price,
+                      image: food.image
+                    })}
                     className={`relative overflow-hidden bg-gradient-to-r ${food.gradient} text-white hover:text-black transition-all duration-500 rounded-full px-6 py-6 group/btn shadow-lg shadow-primary/20 border-none`}
                   >
                     <span className="relative z-10 flex items-center gap-2 font-bold transition-colors">

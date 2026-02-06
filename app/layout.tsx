@@ -18,6 +18,9 @@ export const metadata: Metadata = {
 };
 
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { CartProvider } from "@/context/CartContext";
+import CartDrawer from "@/components/CartDrawer";
+import CheckoutModal from "@/components/CheckoutModal";
 
 export default function RootLayout({
   children,
@@ -35,7 +38,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <CartProvider>
+            {children}
+            <CartDrawer />
+            <CheckoutModal />
+          </CartProvider>
         </ThemeProvider>
       </body>
     </html>

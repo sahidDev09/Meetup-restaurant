@@ -20,6 +20,10 @@ interface CartContextType {
   totalPrice: number;
   isCartOpen: boolean;
   setIsCartOpen: (isOpen: boolean) => void;
+  isCheckoutOpen: boolean;
+  setIsCheckoutOpen: (isOpen: boolean) => void;
+  orderId: string;
+  generateOrderId: () => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -40,6 +44,13 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   });
 
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
+  const [orderId, setOrderId] = useState("");
+
+  const generateOrderId = () => {
+    const randomId = Math.floor(100000 + Math.random() * 900000);
+    setOrderId(`MT-${randomId}`);
+  };
 
   // Save cart to localStorage
   useEffect(() => {
@@ -56,7 +67,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       }
       return [...prevCart, { ...item, quantity: 1 }];
     });
-    setIsCartOpen(true); // Automatically open drawer
+    setIsCartOpen(true);
   };
 
   const removeFromCart = (id: number | string) => {
@@ -92,6 +103,10 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         totalPrice,
         isCartOpen,
         setIsCartOpen,
+        isCheckoutOpen,
+        setIsCheckoutOpen,
+        orderId,
+        generateOrderId,
       }}
     >
       {children}

@@ -8,7 +8,13 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
 export default function CartDrawer() {
-  const { cart, isCartOpen, setIsCartOpen, removeFromCart, updateQuantity, totalPrice } = useCart();
+  const { cart, isCartOpen, setIsCartOpen, removeFromCart, updateQuantity, totalPrice, setIsCheckoutOpen, generateOrderId } = useCart();
+
+  const handleCheckout = () => {
+    generateOrderId(); // Generate ID here
+    setIsCartOpen(false); // Close drawer
+    setIsCheckoutOpen(true); // Open modal
+  };
 
   return (
     <AnimatePresence>
@@ -140,7 +146,10 @@ export default function CartDrawer() {
                     <span className="text-primary">৳{totalPrice + 60}</span>
                   </div>
                 </div>
-                <Button className="w-full bg-primary hover:opacity-90 text-white py-6 rounded-2xl font-bold text-lg shadow-lg shadow-primary/20 transition-all active:scale-[0.98]">
+                <Button 
+                  onClick={handleCheckout}
+                  className="w-full bg-primary hover:opacity-90 text-white py-6 rounded-2xl font-bold text-lg shadow-lg shadow-primary/20 transition-all active:scale-[0.98]"
+                >
                   Proceed to Checkout
                 </Button>
               </div>

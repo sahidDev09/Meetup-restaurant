@@ -21,7 +21,7 @@ export default function Navbar() {
             <Link href="/" className="text-foreground/80 hover:text-primary transition-colors font-medium">Home</Link>
             <Link href="/menu" className="text-foreground/80 hover:text-primary transition-colors font-medium">Menu</Link>
             <Link href="/about" className="text-foreground/80 hover:text-primary transition-colors font-medium">About</Link>
-            <Link href="/contact" className="text-foreground/80 hover:text-primary transition-colors font-medium">Contact</Link>
+            
           </div>
 
           {/* Right side actions */}

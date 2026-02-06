@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, Clock, MapPin, Star } from "lucide-react";
+import { ArrowRight, Calendar, Clock, MapPin, Star } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "next-themes";
@@ -112,7 +112,8 @@ export default function Hero() {
                   size="lg" 
                   className="px-8 py-6 text-base rounded-full border-border text-foreground hover:bg-muted transition-all duration-300"
                 >
-                  View Menu
+                  <Calendar className="mr-2 h-5 w-5" />
+                  Book Table
                 </Button>
               </div>
 

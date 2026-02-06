@@ -1,7 +1,8 @@
 "use client";
 
 import Navbar from "@/components/Navbar";
-import { Hero, Features } from "@/components/landing";
+import { Hero, Features, SignatureFoods, FeedbackMarquee } from "@/components/landing";
+import Footer from "@/components/Footer";
 import { useTheme } from "next-themes";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSyncExternalStore } from "react";
@@ -28,15 +29,10 @@ export default function Home() {
           transition={{ duration: 0.4, ease: "circOut" }}
         >
           <Hero />
-          
           <Features />
-          
-          {/* Spacer for other sections */}
-          <section id="menu" className="py-20">
-            <div className="container-custom">
-              {/* Add more sections here */}
-            </div>
-          </section>
+          <SignatureFoods />
+          <FeedbackMarquee />
+          <Footer />
         </motion.main>
       </AnimatePresence>
     </div>

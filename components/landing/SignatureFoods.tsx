@@ -10,7 +10,7 @@ const signatureFoods = [
     id: 1,
     name: "Prime Tomahawk Steak",
     description: "Dry-aged for 45 days, our signature steak is seasoned with sea salt and cracked pepper, served with roasted garlic.",
-    price: 45.00,
+    price: 1250,
     rating: 5.0,
     image: "/assests/signature_steak.png",
     gradient: "from-red-600 to-rose-700",
@@ -21,7 +21,7 @@ const signatureFoods = [
     id: 3,
     name: "Honey Glazed Salmon",
     description: "Pan-seared Atlantic salmon glazed with organic honey and ginger, served with roasted seasonal vegetables.",
-    price: 24.50,
+    price: 850,
     rating: 4.8,
     image: "/assests/signature_salmon.png",
     gradient: "from-emerald-500 to-teal-500",
@@ -32,7 +32,7 @@ const signatureFoods = [
     id: 2,
     name: "Signature Truffle Burger",
     description: "Gourmet beef patty with black truffle aioli, melted aged cheddar, and fresh arugula on a toasted brioche bun.",
-    price: 18.99,
+    price: 480,
     rating: 4.9,
     image: "/assests/signature_burger.png",
     gradient: "from-orange-500 to-rose-500",
@@ -115,8 +115,8 @@ export default function SignatureFoods() {
                   {food.description}
                 </p>
                 <div className="flex items-center justify-between">
-                  <span className="text-2xl font-bold text-foreground">
-                    ${food.price.toFixed(2)}
+                  <span className="text-2xl font-bold text-foreground tabular-nums">
+                    ৳{food.price}
                   </span>
                   
                   <Button 

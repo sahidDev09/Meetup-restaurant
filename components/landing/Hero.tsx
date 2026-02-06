@@ -7,11 +7,16 @@ import { Button } from "@/components/ui/button";
 import { useTheme } from "next-themes";
 import { useEffect, useRef, useSyncExternalStore } from "react";
 import gsap from "gsap";
+import { useState } from "react";
+import BookingModal from "./BookingModal";
+
 
 export default function Hero() {
   const { theme, resolvedTheme } = useTheme();
   const headingRef = useRef<HTMLHeadingElement>(null);
   const containerRef = useRef<HTMLDivElement>(null)
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+
   const mounted = useSyncExternalStore(
     () => () => {},
     () => true,
@@ -110,12 +115,19 @@ export default function Hero() {
                 <Button 
                   variant="outline" 
                   size="lg" 
+                  onClick={() => setIsBookingModalOpen(true)}
                   className="px-8 py-6 text-base rounded-full border-border text-foreground hover:bg-muted transition-all duration-300"
                 >
                   <Calendar className="mr-2 h-5 w-5" />
                   Book Table
                 </Button>
               </div>
+
+              <BookingModal 
+                isOpen={isBookingModalOpen} 
+                onClose={() => setIsBookingModalOpen(false)} 
+              />
+
 
               {/* Stats */}
               <motion.div

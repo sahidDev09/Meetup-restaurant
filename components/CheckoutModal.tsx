@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, CheckCircle2, ClipboardIcon } from "lucide-react";
-import { useCart, CartItem } from "@/context/CartContext";
+import { useCart } from "@/context/CartContext";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/lib/supabase";
 
@@ -22,33 +22,28 @@ export default function CheckoutModal() {
     setIsSubmitting(true);
     
     try {
-      // 1. Insert order into 'orders' table
+      // Calculate tax and total (60 is delivery fee)
+      const subtotal = totalPrice;
+      const tax = 0;
+      const total = subtotal + tax + 60;
+
+      // 1. Insert order into 'orders' table matching the user's schema
       const { error: orderError } = await supabase
         .from('orders')
         .insert({
-          order_id: orderId,
+          order_number: orderId,
           customer_name: formData.name,
-          phone: formData.phone,
-          address: formData.address,
-          total_price: totalPrice + 60,
+          customer_phone: formData.phone,
+          customer_address: formData.address,
+          items: cart, // jsonb column
+          subtotal: subtotal,
+          tax: tax,
+          total: total,
+          payment_method: 'Cash on Delivery',
+          status: 'pending'
         });
 
       if (orderError) throw orderError;
-
-      // 2. Insert order items into 'order_items' table
-      const orderItems = cart.map((item: CartItem) => ({
-        order_id: orderId,
-        product_id: item.id,
-        product_name: item.name,
-        price: item.price,
-        quantity: item.quantity
-      }));
-
-      const { error: itemsError } = await supabase
-        .from('order_items')
-        .insert(orderItems);
-
-      if (itemsError) throw itemsError;
 
       setIsSuccess(true);
       clearCart();

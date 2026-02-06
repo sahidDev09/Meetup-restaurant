@@ -45,8 +45,8 @@ export default function OrdersPage() {
     <div className="space-y-8 animate-in fade-in duration-500">
       <div className="flex items-end justify-between">
         <div>
-          <h1 className="text-3xl font-black text-gray-900 dark:text-white">Orders</h1>
-          <p className="text-gray-500 dark:text-gray-400 mt-1">Manage and track all customer orders with OTP verification.</p>
+          <h1 className="text-3xl font-black text-foreground">Orders</h1>
+          <p className="text-muted-foreground mt-1">Manage and track all customer orders with OTP verification.</p>
         </div>
       </div>
 
@@ -57,32 +57,32 @@ export default function OrdersPage() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: index * 0.05 }}
-            className="flex items-center gap-4 p-4 bg-white dark:bg-slate-900 rounded-2xl border border-gray-100 dark:border-slate-800 shadow-sm transition-colors"
+            className="flex items-center gap-4 p-4 bg-card rounded-2xl border border-border shadow-sm transition-colors"
           >
             <div className={cn("p-3 rounded-xl transition-colors", stat.bg, stat.color)}>
               <stat.icon size={20} />
             </div>
             <div>
-              <p className="text-xl font-black text-gray-900 dark:text-white">{stat.value}</p>
-              <p className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest">{stat.label}</p>
+              <p className="text-xl font-black text-foreground">{stat.value}</p>
+              <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">{stat.label}</p>
             </div>
           </motion.div>
         ))}
       </div>
 
-      <div className="bg-white dark:bg-slate-900 rounded-[32px] border border-gray-100 dark:border-slate-800 shadow-sm overflow-hidden transition-colors">
-        <div className="p-6 border-b border-gray-50 dark:border-slate-800/50 flex flex-col md:flex-row gap-4 items-center justify-between">
+      <div className="bg-card rounded-[32px] border border-border shadow-sm overflow-hidden transition-colors">
+        <div className="p-6 border-b border-border flex flex-col md:flex-row gap-4 items-center justify-between">
           <div className="relative w-full md:w-96">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500" size={18} />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={18} />
             <input 
               type="text" 
               placeholder="Search orders..." 
-              className="w-full pl-10 pr-4 py-2 bg-gray-50 dark:bg-slate-800/50 border-none rounded-xl text-sm dark:text-gray-200 outline-none ring-1 ring-transparent focus:ring-[#FF4D1C]/20 transition-all placeholder:text-gray-400 dark:placeholder:text-gray-600"
+              className="w-full pl-10 pr-4 py-2 bg-muted/50 border-none rounded-xl text-sm foreground outline-none ring-1 ring-transparent focus:ring-[#FF4D1C]/20 transition-all placeholder:text-muted-foreground/60"
             />
           </div>
           
           <div className="flex items-center gap-3 w-full md:w-auto">
-             <button className="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2 bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-xl text-sm font-bold text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 transition-all">
+             <button className="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2 bg-card border border-border rounded-xl text-sm font-bold text-muted-foreground hover:text-foreground transition-all">
               <Filter size={16} />
               All Status
             </button>
@@ -92,7 +92,7 @@ export default function OrdersPage() {
         <div className="overflow-x-auto">
           <table className="w-full text-left">
             <thead>
-              <tr className="bg-gray-50 dark:bg-slate-800/50 text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-[0.15em] border-b border-gray-100 dark:border-slate-800">
+              <tr className="bg-muted/50 text-[10px] font-bold text-muted-foreground uppercase tracking-[0.15em] border-b border-border">
                 <th className="px-6 py-4">Order ID</th>
                 <th className="px-6 py-4">Customer</th>
                 <th className="px-6 py-4">Items</th>
@@ -103,21 +103,21 @@ export default function OrdersPage() {
                 <th className="px-6 py-4 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-50 dark:divide-slate-800/50">
+            <tbody className="divide-y divide-border">
               {orders.map((order) => (
-                <tr key={order.id} className="hover:bg-gray-50/50 dark:hover:bg-slate-800/50 transition-colors group">
-                  <td className="px-6 py-4 text-xs font-bold text-gray-900 dark:text-gray-100">{order.id}</td>
+                <tr key={order.id} className="hover:bg-muted/50 transition-colors group">
+                  <td className="px-6 py-4 text-xs font-bold text-foreground">{order.id}</td>
                   <td className="px-6 py-4">
-                    <div className="text-xs font-bold text-gray-900 dark:text-gray-100">{order.customer}</div>
-                    <div className="text-[10px] text-gray-400 dark:text-gray-500 mt-0.5">{order.phone}</div>
+                    <div className="text-xs font-bold text-foreground">{order.customer}</div>
+                    <div className="text-[10px] text-muted-foreground mt-0.5">{order.phone}</div>
                   </td>
-                  <td className="px-6 py-4 text-xs font-medium text-gray-600 dark:text-gray-400">{order.items}</td>
-                  <td className="px-6 py-4 text-xs font-bold text-gray-900 dark:text-gray-100">{order.total}</td>
+                  <td className="px-6 py-4 text-xs font-medium text-muted-foreground">{order.items}</td>
+                  <td className="px-6 py-4 text-xs font-bold text-foreground">{order.total}</td>
                   <td className="px-6 py-4">
                     <span className={cn(
                       "px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider",
                       order.status === "Delivered" ? "bg-green-50 dark:bg-green-500/10 text-green-600" :
-                      order.status === "Out for Delivery" ? "bg-blue-50 dark:bg-blue-500/10 text-blue-600" : "bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-gray-400"
+                      order.status === "Out for Delivery" ? "bg-blue-50 dark:bg-blue-500/10 text-blue-600" : "bg-muted text-muted-foreground"
                     )}>
                       {order.status}
                     </span>
@@ -125,15 +125,15 @@ export default function OrdersPage() {
                   <td className="px-6 py-4">
                     <span className={cn(
                       "flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider w-fit",
-                      order.otp === "Verified" ? "bg-green-500 text-white shadow-sm" : "bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-gray-400"
+                      order.otp === "Verified" ? "bg-green-500 text-white shadow-sm" : "bg-muted text-muted-foreground"
                     )}>
                       {order.otp === "Verified" && <CheckCircle2 size={10} />}
                       {order.otp}
                     </span>
                   </td>
-                  <td className="px-6 py-4 text-[10px] font-medium text-gray-500 dark:text-gray-500 whitespace-nowrap">{order.date}</td>
+                  <td className="px-6 py-4 text-[10px] font-medium text-muted-foreground whitespace-nowrap">{order.date}</td>
                   <td className="px-6 py-4 text-right">
-                    <button className="p-2 text-gray-400 dark:text-gray-500 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-white dark:hover:bg-slate-800 rounded-lg transition-all opacity-0 group-hover:opacity-100">
+                    <button className="p-2 text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-all opacity-0 group-hover:opacity-100">
                       <MoreVertical size={16} />
                     </button>
                   </td>

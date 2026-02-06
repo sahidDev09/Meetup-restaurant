@@ -35,7 +35,7 @@ export function AdminLoginModal() {
       <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="absolute inset-0 bg-white/20 backdrop-blur-md"
+        className="absolute inset-0 bg-background/20 backdrop-blur-md"
       />
 
       {/* Modal */}
@@ -43,32 +43,32 @@ export function AdminLoginModal() {
         initial={{ opacity: 0, scale: 0.9, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-        className="w-full max-w-[420px] bg-white rounded-[40px] shadow-[0_32px_64px_rgba(0,0,0,0.1)] p-10 relative z-10 border border-gray-100"
+        className="w-full max-w-[420px] bg-card rounded-[40px] shadow-[0_32px_64px_rgba(0,0,0,0.1)] p-10 relative z-10 border border-border"
       >
         <div className="absolute top-6 right-6">
-           <button onClick={() => router.push('/')} className="p-2 text-gray-300 hover:text-gray-900 transition-colors">
+           <button onClick={() => router.push('/')} className="p-2 text-muted-foreground hover:text-foreground transition-colors">
             <X size={20} />
            </button>
         </div>
 
         <div className="text-center mb-10">
-          <div className="w-16 h-16 bg-orange-50 text-[#FF4D1C] rounded-2xl flex items-center justify-center mx-auto mb-6">
+          <div className="w-16 h-16 bg-orange-500/10 text-[#FF4D1C] rounded-2xl flex items-center justify-center mx-auto mb-6">
             <Lock size={30} />
           </div>
-          <h2 className="text-2xl font-black text-gray-900 tracking-tight">Admin Portal</h2>
-          <p className="text-gray-400 text-sm mt-2 font-medium">Please sign in to continue</p>
+          <h2 className="text-2xl font-black text-foreground tracking-tight">Admin Portal</h2>
+          <p className="text-muted-foreground text-sm mt-2 font-medium">Please sign in to continue</p>
         </div>
 
         <form onSubmit={handleLogin} className="space-y-4">
           <div className="space-y-1.5">
-            <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">Email</label>
+            <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest ml-1">Email</label>
             <div className="relative">
-              <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
+              <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" size={16} />
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full pl-11 pr-4 py-3.5 bg-gray-50 border-none rounded-2xl text-sm font-medium focus:ring-2 focus:ring-orange-500/20 outline-none transition-all placeholder:text-gray-300"
+                className="w-full pl-11 pr-4 py-3.5 bg-muted/50 border-none rounded-2xl text-sm font-medium foreground focus:ring-2 focus:ring-orange-500/20 outline-none transition-all placeholder:text-muted-foreground/40"
                 placeholder="admin@meetup.com"
                 required
               />
@@ -76,14 +76,14 @@ export function AdminLoginModal() {
           </div>
 
           <div className="space-y-1.5">
-            <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">Password</label>
+            <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest ml-1">Password</label>
             <div className="relative">
-              <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
+              <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" size={16} />
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full pl-11 pr-4 py-3.5 bg-gray-50 border-none rounded-2xl text-sm font-medium focus:ring-2 focus:ring-orange-500/20 outline-none transition-all placeholder:text-gray-300"
+                className="w-full pl-11 pr-4 py-3.5 bg-muted/50 border-none rounded-2xl text-sm font-medium foreground focus:ring-2 focus:ring-orange-500/20 outline-none transition-all placeholder:text-muted-foreground/40"
                 placeholder="••••••••"
                 required
               />

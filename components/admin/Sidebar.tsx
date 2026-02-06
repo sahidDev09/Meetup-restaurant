@@ -32,7 +32,7 @@ export function Sidebar() {
   };
 
   return (
-    <div className="w-64 h-screen bg-card border-r border-border flex flex-col fixed left-0 top-0 z-50 transition-colors duration-300">
+    <div className="w-64 h-screen bg-background border-r border-border flex flex-col fixed left-0 top-0 z-50 transition-colors duration-300">
       <div className="p-6">
         <Link href="/" className="flex items-center gap-2">
           <span className="text-2xl font-bold text-[#FF4D1C]">Meetup</span>

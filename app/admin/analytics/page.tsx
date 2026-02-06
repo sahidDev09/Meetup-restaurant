@@ -56,16 +56,16 @@ export default function AnalyticsPage() {
     <div className="space-y-8 animate-in fade-in duration-700">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-black text-gray-900 dark:text-white">Analytics</h1>
-          <p className="text-gray-500 dark:text-gray-400 mt-1">Track your restaurant&apos;s performance.</p>
+          <h1 className="text-3xl font-black text-foreground">Analytics</h1>
+          <p className="text-muted-foreground mt-1">Track your restaurant&apos;s performance.</p>
         </div>
         
         <div className="flex flex-wrap items-center gap-3">
-          <div className="flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-300 shadow-sm transition-colors">
+          <div className="flex items-center gap-2 px-4 py-2.5 bg-card border border-border rounded-xl text-sm font-medium text-muted-foreground shadow-sm transition-colors">
             <Calendar size={16} />
             Last 30 days
           </div>
-          <button className="flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-xl text-sm font-bold text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 shadow-sm transition-all">
+          <button className="flex items-center gap-2 px-4 py-2.5 bg-card border border-border rounded-xl text-sm font-bold text-muted-foreground hover:text-foreground shadow-sm transition-all">
             <Download size={16} />
             Export
           </button>
@@ -79,7 +79,7 @@ export default function AnalyticsPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.05 }}
-            className="p-6 bg-white dark:bg-slate-900 rounded-[32px] border border-gray-100 dark:border-slate-800 shadow-sm relative group transition-colors"
+            className="p-6 bg-card rounded-[32px] border border-border shadow-sm relative group transition-colors"
           >
             <div className="flex items-start justify-between">
               <div className={`w-12 h-12 ${stat.bg} ${stat.color} rounded-2xl flex items-center justify-center transition-transform group-hover:scale-110`}>
@@ -91,15 +91,15 @@ export default function AnalyticsPage() {
               </div>
             </div>
             <div className="mt-4 space-y-1">
-              <p className="text-2xl font-black text-gray-900 dark:text-white">{stat.value}</p>
-              <p className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-[0.2em]">{stat.label}</p>
+              <p className="text-2xl font-black text-foreground">{stat.value}</p>
+              <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em]">{stat.label}</p>
             </div>
           </motion.div>
         ))}
       </div>
 
-      <div className="bg-white dark:bg-slate-900 p-8 rounded-[40px] border border-gray-100 dark:border-slate-800 shadow-sm transition-colors">
-        <h3 className="text-xl font-black text-gray-900 dark:text-white mb-8 font-outfit">Revenue & Orders Trend</h3>
+      <div className="bg-card p-8 rounded-[40px] border border-border shadow-sm transition-colors">
+        <h3 className="text-xl font-black text-foreground mb-8 font-outfit">Revenue & Orders Trend</h3>
         <div className="h-[400px] w-full">
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={trendData}>
@@ -109,29 +109,29 @@ export default function AnalyticsPage() {
                   <stop offset="95%" stopColor="#FF4D1C" stopOpacity={0}/>
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={isDark ? "#1e293b" : "#f1f1f1"} />
+              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={isDark ? "#27272a" : "#f1f1f1"} />
               <XAxis 
                 dataKey="name" 
                 axisLine={false} 
                 tickLine={false} 
-                tick={{ fill: '#94a3b8', fontSize: 12, fontWeight: 600 }}
+                tick={{ fill: isDark ? '#a1a1aa' : '#94a3b8', fontSize: 12, fontWeight: 600 }}
                 dy={15}
               />
               <YAxis 
                 axisLine={false} 
                 tickLine={false} 
-                tick={{ fill: '#94a3b8', fontSize: 12, fontWeight: 600 }}
+                tick={{ fill: isDark ? '#a1a1aa' : '#94a3b8', fontSize: 12, fontWeight: 600 }}
               />
               <Tooltip 
                 contentStyle={{ 
                   borderRadius: '20px', 
-                  backgroundColor: isDark ? '#0f172a' : '#ffffff',
-                  border: 'none', 
+                  backgroundColor: isDark ? '#0a0a0a' : '#ffffff',
+                  border: '1px solid ' + (isDark ? '#27272a' : '#e2e8f0'), 
                   boxShadow: '0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04)',
                   padding: '12px 16px',
-                  color: isDark ? '#f8fafc' : '#0f172a'
+                  color: isDark ? '#ffffff' : '#000000'
                 }}
-                itemStyle={{ color: isDark ? '#f8fafc' : '#0f172a' }}
+                itemStyle={{ color: isDark ? '#ffffff' : '#000000' }}
               />
               <Area 
                 type="monotone" 
@@ -148,19 +148,19 @@ export default function AnalyticsPage() {
         <div className="flex justify-center mt-6">
            <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-[#FF4D1C]" />
-            <span className="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest">Revenue (৳)</span>
+            <span className="text-xs font-bold text-muted-foreground uppercase tracking-widest">Revenue (৳)</span>
           </div>
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="bg-white dark:bg-slate-900 p-8 rounded-[40px] border border-gray-100 dark:border-slate-800 shadow-sm h-64 flex items-center justify-center relative transition-colors">
-          <h3 className="absolute top-8 left-8 text-lg font-black text-gray-900 dark:text-white font-outfit">Peak Order Hours</h3>
-          <p className="text-sm font-medium text-gray-400 dark:text-gray-500 italic">Chart loading or data unavailable</p>
+        <div className="bg-card p-8 rounded-[40px] border border-border shadow-sm h-64 flex items-center justify-center relative transition-colors">
+          <h3 className="absolute top-8 left-8 text-lg font-black text-foreground font-outfit">Peak Order Hours</h3>
+          <p className="text-sm font-medium text-muted-foreground italic">Chart loading or data unavailable</p>
         </div>
-        <div className="bg-white dark:bg-slate-900 p-8 rounded-[40px] border border-gray-100 dark:border-slate-800 shadow-sm h-64 flex items-center justify-center relative transition-colors">
-          <h3 className="absolute top-8 left-8 text-lg font-black text-gray-900 dark:text-white font-outfit">Online vs Offline Orders</h3>
-          <p className="text-sm font-medium text-gray-400 dark:text-gray-500 italic">Chart loading or data unavailable</p>
+        <div className="bg-card p-8 rounded-[40px] border border-border shadow-sm h-64 flex items-center justify-center relative transition-colors">
+          <h3 className="absolute top-8 left-8 text-lg font-black text-foreground font-outfit">Online vs Offline Orders</h3>
+          <p className="text-sm font-medium text-muted-foreground italic">Chart loading or data unavailable</p>
         </div>
       </div>
     </div>

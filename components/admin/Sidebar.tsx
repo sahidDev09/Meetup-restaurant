@@ -32,7 +32,7 @@ export function Sidebar() {
   };
 
   return (
-    <div className="w-64 h-screen bg-white border-r border-gray-100 flex flex-col fixed left-0 top-0 z-50">
+    <div className="w-64 h-screen bg-white dark:bg-slate-900 border-r border-gray-100 dark:border-slate-800 flex flex-col fixed left-0 top-0 z-50 transition-colors duration-300">
       <div className="p-6">
         <Link href="/" className="flex items-center gap-2">
           <span className="text-2xl font-bold text-[#FF4D1C]">Meetup</span>
@@ -50,7 +50,7 @@ export function Sidebar() {
                 "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200",
                 isActive 
                   ? "bg-[#FF4D1C] text-white shadow-lg shadow-orange-500/20" 
-                  : "text-gray-500 hover:bg-gray-50 hover:text-gray-900"
+                  : "text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-slate-800 hover:text-gray-900 dark:hover:text-gray-100"
               )}
             >
               <item.icon size={20} />
@@ -63,14 +63,14 @@ export function Sidebar() {
       <div className="p-6 mt-auto space-y-2">
         <Link 
           href="/"
-          className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-500 hover:text-gray-900 truncate"
+          className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 truncate transition-colors"
         >
           <ArrowLeft size={18} />
           Back to Site
         </Link>
         <button
           onClick={handleLogout}
-          className="w-full flex items-center gap-3 px-4 py-3 text-sm font-medium text-red-500 hover:bg-red-50 rounded-xl transition-colors truncate"
+          className="w-full flex items-center gap-3 px-4 py-3 text-sm font-medium text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 rounded-xl transition-colors truncate"
         >
           <ArrowLeft size={18} className="rotate-180" />
           Sign Out

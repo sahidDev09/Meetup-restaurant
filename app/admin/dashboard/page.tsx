@@ -1,67 +1,80 @@
 "use client";
 
-import React from "react";
+import { motion } from "framer-motion";
 import { 
+  DollarSign, 
   TrendingUp, 
-  ShoppingBag, 
   Clock, 
   ChefHat, 
   Truck, 
   CheckCircle2, 
   XCircle, 
-  Package,
-  ArrowUpRight,
-  ArrowDownRight,
+  ShoppingBag,
   Calendar,
   Download
 } from "lucide-react";
-import { motion } from "framer-motion";
+import { 
+  LineChart, 
+  Line, 
+  XAxis, 
+  YAxis, 
+  CartesianGrid, 
+  Tooltip, 
+  ResponsiveContainer,
+  AreaChart,
+  Area
+} from "recharts";
 
 const stats = [
-  { label: "Period Sales", value: "৳0", icon: TrendingUp, color: "text-emerald-500", bg: "bg-emerald-50" },
-  { label: "Period Revenue", value: "৳0", icon: ShoppingBag, color: "text-orange-500", bg: "bg-orange-50" },
+  { label: "Period Sales", value: "৳0", icon: DollarSign, color: "text-emerald-500", bg: "bg-emerald-50" },
+  { label: "Period Revenue", value: "৳0", icon: TrendingUp, color: "text-orange-500", bg: "bg-orange-50" },
   { label: "Pending Orders", value: "0", icon: Clock, color: "text-amber-500", bg: "bg-amber-50" },
   { label: "Preparing", value: "0", icon: ChefHat, color: "text-rose-500", bg: "bg-rose-50" },
   { label: "Out for Delivery", value: "0", icon: Truck, color: "text-blue-500", bg: "bg-blue-50" },
   { label: "Delivered", value: "0", icon: CheckCircle2, color: "text-green-500", bg: "bg-green-50" },
   { label: "Cancelled", value: "0", icon: XCircle, color: "text-red-500", bg: "bg-red-50" },
-  { label: "Total Orders", value: "0", icon: Package, color: "text-purple-500", bg: "bg-purple-50" },
+  { label: "Total Orders", value: "0", icon: ShoppingBag, color: "text-purple-500", bg: "bg-purple-50" },
+];
+
+const data = [
+  { name: "01/31", sales: 0 },
+  { name: "02/01", sales: 0 },
+  { name: "02/02", sales: 0 },
+  { name: "02/03", sales: 0 },
+  { name: "02/04", sales: 0 },
+  { name: "02/05", sales: 0 },
+  { name: "02/06", sales: 0 },
+  { name: "02/07", sales: 0 },
 ];
 
 export default function DashboardPage() {
   return (
-    <div className="space-y-8 animate-in fade-in duration-500">
-      <div className="flex items-center justify-between">
+    <div className="space-y-8 font-outfit">
+      <div className="flex items-end justify-between">
         <div>
-          <h1 className="text-3xl font-black text-gray-900 font-outfit">Dashboard</h1>
+          <h1 className="text-3xl font-black text-gray-900">Dashboard</h1>
           <p className="text-gray-500 mt-1">Welcome back! Here's what's happening.</p>
         </div>
         
         <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-xl border border-gray-200">
-            <Calendar className="w-4 h-4 text-gray-400" />
-            <span className="text-sm font-medium text-gray-700">Jan 30 - Feb 06, 2026</span>
+          <div className="flex items-center gap-2 px-4 py-2.5 bg-white border border-gray-100 rounded-xl text-sm font-medium text-gray-600 shadow-sm">
+            <Calendar size={16} />
+            Jan 31 - Feb 07, 2026
           </div>
-          <div className="flex bg-white rounded-xl border border-gray-200 p-1">
-            {["Today", "7 Days", "30 Days"].map((tab) => (
-              <button
-                key={tab}
-                className={`px-4 py-1.5 text-xs font-bold rounded-lg transition-all ${
-                  tab === "7 Days" ? "bg-gray-100 text-gray-900" : "text-gray-500 hover:text-gray-900"
-                }`}
-              >
-                {tab}
+          <div className="flex bg-white border border-gray-100 rounded-xl shadow-sm overflow-hidden">
+            {["Today", "7 Days", "30 Days"].map((period) => (
+              <button key={period} className="px-4 py-2.5 text-xs font-bold text-gray-400 hover:text-gray-900 transition-colors border-r last:border-r-0 border-gray-100">
+                {period}
               </button>
             ))}
           </div>
-          <button className="flex items-center gap-2 bg-white px-4 py-2 rounded-xl border border-gray-200 text-sm font-bold text-gray-700 hover:bg-gray-50 transition-all">
-            <Download className="w-4 h-4" />
+          <button className="flex items-center gap-2 px-4 py-2.5 bg-white border border-gray-100 rounded-xl text-sm font-bold text-gray-600 hover:text-gray-900 shadow-sm transition-all">
+            <Download size={16} />
             Export
           </button>
         </div>
       </div>
 
-      {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {stats.map((stat, index) => (
           <motion.div
@@ -69,65 +82,70 @@ export default function DashboardPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.05 }}
-            className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow"
+            className="p-6 bg-white rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group"
           >
-            <div className={`w-10 h-10 ${stat.bg} ${stat.color} rounded-xl flex items-center justify-center mb-4`}>
-              <stat.icon className="w-5 h-5" />
+            <div className={`w-12 h-12 ${stat.bg} ${stat.color} rounded-2xl flex items-center justify-center mb-4 transition-transform group-hover:scale-110`}>
+              <stat.icon size={24} />
             </div>
-            <p className="text-gray-500 text-sm font-medium">{stat.label}</p>
-            <h3 className="text-2xl font-black text-gray-900 mt-1">{stat.value}</h3>
+            <div className="space-y-1">
+              <p className="text-2xl font-black text-gray-900">{stat.value}</p>
+              <p className="text-xs font-medium text-gray-400 uppercase tracking-wider">{stat.label}</p>
+            </div>
           </motion.div>
         ))}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Sales Chart Placeholder */}
-        <div className="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm">
-          <div className="flex items-center justify-between mb-8">
-            <h3 className="text-lg font-bold text-gray-900">Last 7 Days Sales</h3>
-            <div className="flex items-center gap-2 text-emerald-500 text-sm font-bold bg-emerald-50 px-2 py-1 rounded-lg">
-              <ArrowUpRight className="w-4 h-4" />
-              +12.5%
-            </div>
-          </div>
-          
-          <div className="h-64 flex items-end justify-between gap-2 px-2">
-            {[30, 45, 25, 60, 40, 75, 50].map((height, i) => (
-              <div key={i} className="flex-1 flex flex-col items-center gap-3 group">
-                <div className="w-full relative">
-                  <motion.div 
-                    initial={{ height: 0 }}
-                    animate={{ height: `${height}%` }}
-                    className="w-full bg-orange-100 group-hover:bg-orange-500 transition-colors rounded-t-lg rounded-b-md cursor-pointer"
-                  />
-                </div>
-                <span className="text-[10px] font-bold text-gray-400">01/0{i+1}</span>
-              </div>
-            ))}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="lg:col-span-2 p-8 bg-white rounded-[32px] border border-gray-100 shadow-sm">
+          <h3 className="text-lg font-black text-gray-900 mb-8">Last 7 Days Sales</h3>
+          <div className="h-[350px] w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={data}>
+                <defs>
+                  <linearGradient id="colorSales" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#FF4D1C" stopOpacity={0.1}/>
+                    <stop offset="95%" stopColor="#FF4D1C" stopOpacity={0}/>
+                  </linearGradient>
+                </defs>
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f1f1" />
+                <XAxis 
+                  dataKey="name" 
+                  axisLine={false} 
+                  tickLine={false} 
+                  tick={{ fill: '#94a3b8', fontSize: 12 }}
+                  dy={10}
+                />
+                <YAxis 
+                  axisLine={false} 
+                  tickLine={false} 
+                  tick={{ fill: '#94a3b8', fontSize: 12 }}
+                />
+                <Tooltip 
+                  contentStyle={{ borderRadius: '16px', border: 'none', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)' }}
+                />
+                <Area 
+                  type="monotone" 
+                  dataKey="sales" 
+                  stroke="#FF4D1C" 
+                  strokeWidth={3}
+                  fillOpacity={1} 
+                  fill="url(#colorSales)" 
+                />
+              </AreaChart>
+            </ResponsiveContainer>
           </div>
         </div>
 
-        {/* Order Status Distribution Placeholder */}
-        <div className="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm">
-          <h3 className="text-lg font-bold text-gray-900 mb-8">Order Status Distribution</h3>
-          <div className="flex items-center justify-center py-10">
-            <div className="relative w-48 h-48 rounded-full border-[16px] border-gray-100 flex items-center justify-center">
-              <div className="absolute inset-0 rounded-full border-[16px] border-orange-500 border-t-transparent border-l-transparent -rotate-45" />
-              <div className="text-center">
+        <div className="p-8 bg-white rounded-[32px] border border-gray-100 shadow-sm flex flex-col items-center justify-center text-center">
+          <h3 className="text-lg font-black text-gray-900 mb-4 self-start">Order Status Distribution</h3>
+          <div className="flex-1 flex flex-col items-center justify-center space-y-4">
+            <div className="w-48 h-48 rounded-full border-8 border-gray-50 flex items-center justify-center relative">
+               <div className="text-center">
                 <p className="text-3xl font-black text-gray-900">0</p>
-                <p className="text-xs text-gray-500 font-bold uppercase tracking-wider">Orders</p>
-              </div>
+                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Total</p>
+               </div>
             </div>
-          </div>
-          <div className="grid grid-cols-2 gap-4 mt-4">
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-orange-500" />
-              <span className="text-xs font-medium text-gray-600">Completed (0%)</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-gray-200" />
-              <span className="text-xs font-medium text-gray-600">Pending (0%)</span>
-            </div>
+            <p className="text-sm text-gray-400 font-medium italic">No data available for the selected period.</p>
           </div>
         </div>
       </div>

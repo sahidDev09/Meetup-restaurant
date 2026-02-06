@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { Star, ShoppingCart, Filter } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useCart } from "@/context/CartContext";
 
 const categories = ["All", "Main Course", "Appetizers", "Desserts", "Beverages"];
 
@@ -85,6 +86,7 @@ const menuItems = [
 
 export default function MenuContent() {
   const [activeCategory, setActiveCategory] = useState("All");
+  const { addToCart } = useCart();
 
   const filteredItems = activeCategory === "All" 
     ? menuItems 
@@ -93,9 +95,6 @@ export default function MenuContent() {
   return (
     <div className="py-10">
       <div className="container mx-auto">
-        {/* Header */}
-        
-
         {/* Categories Section */}
         <div className="flex flex-wrap justify-center gap-4 mb-16 px-4">
           {categories.map((category, index) => (
@@ -169,6 +168,12 @@ export default function MenuContent() {
                     </div>
                     
                     <Button 
+                      onClick={() => addToCart({
+                        id: item.id,
+                        name: item.name,
+                        price: item.price,
+                        image: item.image
+                      })}
                       className={`relative overflow-hidden bg-gradient-to-r ${item.gradient} text-white hover:text-black transition-all duration-500 rounded-2xl px-4 py-2 group/btn shadow-xl shadow-primary/10 border-none h-auto`}
                     >
                       <span className="relative z-10 flex items-center gap-2 font-black text-sm uppercase tracking-wider">

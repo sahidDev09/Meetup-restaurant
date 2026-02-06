@@ -91,7 +91,7 @@ export default function MenuContent() {
     : menuItems.filter(item => item.category === activeCategory);
 
   return (
-    <div className="py-20">
+    <div className="py-10">
       <div className="container mx-auto">
         {/* Header */}
         
@@ -119,7 +119,7 @@ export default function MenuContent() {
         {/* Grid Section */}
         <motion.div 
           layout
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           <AnimatePresence mode="popLayout">
             {filteredItems.map((item, index) => (

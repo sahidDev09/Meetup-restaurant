@@ -13,9 +13,8 @@ import {
   Loader2,
   RefreshCw,
   Eye,
-  Play,
   X,
-  Check,
+  Key,
   ShieldCheck,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -54,11 +53,11 @@ interface OrderStats {
 }
 
 const statusConfig = [
-  { key: "pending", label: "Pending", icon: Clock, color: "text-amber-500", bg: "bg-amber-50 dark:bg-amber-500/10" },
-  { key: "preparing", label: "Preparing", icon: ChefHat, color: "text-rose-500", bg: "bg-rose-50 dark:bg-rose-500/10" },
-  { key: "prepared", label: "Prepared", icon: Package, color: "text-blue-500", bg: "bg-blue-50 dark:bg-blue-500/10" },
-  { key: "out_for_delivery", label: "Out for Delivery", icon: Truck, color: "text-sky-500", bg: "bg-sky-50 dark:bg-sky-500/10" },
-  { key: "delivered", label: "Delivered", icon: CheckCircle2, color: "text-green-500", bg: "bg-green-50 dark:bg-green-500/10" },
+  { key: "pending", label: "Pending", icon: Clock, iconColor: "text-amber-500", color: "text-amber-500", bg: "bg-amber-50 dark:bg-amber-500/10" },
+  { key: "preparing", label: "Preparing", icon: ChefHat, iconColor: "text-rose-500", color: "text-rose-500", bg: "bg-rose-50 dark:bg-rose-500/10" },
+  { key: "prepared", label: "Prepared", icon: Package, iconColor: "text-blue-500", color: "text-blue-500", bg: "bg-blue-50 dark:bg-blue-500/10" },
+  { key: "out_for_delivery", label: "Out for Delivery", icon: Truck, iconColor: "text-sky-500", color: "text-sky-500", bg: "bg-sky-50 dark:bg-sky-500/10" },
+  { key: "delivered", label: "Delivered", icon: CheckCircle2, iconColor: "text-green-500", color: "text-green-500", bg: "bg-green-50 dark:bg-green-500/10" },
 ];
 
 function formatDate(dateString: string): string {
@@ -386,12 +385,11 @@ function ActionDropdown({
       case 'pending':
         actions.push({
           label: 'Start Preparing',
-          icon: <Play size={16} />,
+          icon: <ChefHat size={16} />,
           onClick: () => {
             onUpdateStatus(order.id, 'preparing');
             setIsOpen(false);
-          },
-          variant: 'primary'
+          }
         });
         actions.push({
           label: 'Cancel Order',
@@ -406,12 +404,11 @@ function ActionDropdown({
       case 'preparing':
         actions.push({
           label: 'Mark as Prepared',
-          icon: <Check size={16} />,
+          icon: <Package size={16} />,
           onClick: () => {
             onUpdateStatus(order.id, 'prepared');
             setIsOpen(false);
-          },
-          variant: 'primary'
+          }
         });
         break;
       case 'prepared':
@@ -422,19 +419,17 @@ function ActionDropdown({
             const otp = generateOTP();
             onUpdateStatus(order.id, 'out_for_delivery', otp);
             setIsOpen(false);
-          },
-          variant: 'primary'
+          }
         });
         break;
       case 'out_for_delivery':
         actions.push({
           label: 'Verify OTP & Deliver',
-          icon: <ShieldCheck size={16} />,
+          icon: <Key size={16} />,
           onClick: () => {
             onVerifyOTP(order);
             setIsOpen(false);
-          },
-          variant: 'success'
+          }
         });
         break;
     }

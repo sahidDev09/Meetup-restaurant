@@ -106,16 +106,16 @@ export default function OrdersPage() {
             <tbody className="divide-y divide-border">
               {orders.map((order) => (
                 <tr key={order.id} className="hover:bg-muted/50 transition-colors group">
-                  <td className="px-6 py-4 text-xs font-bold text-foreground">{order.id}</td>
+                  <td className="px-6 py-4 text-sm font-bold text-foreground">{order.id}</td>
                   <td className="px-6 py-4">
-                    <div className="text-xs font-bold text-foreground">{order.customer}</div>
+                    <div className="text-sm font-bold text-foreground">{order.customer}</div>
                     <div className="text-[10px] text-muted-foreground mt-0.5">{order.phone}</div>
                   </td>
-                  <td className="px-6 py-4 text-xs font-medium text-muted-foreground">{order.items}</td>
-                  <td className="px-6 py-4 text-xs font-bold text-foreground">{order.total}</td>
+                  <td className="px-6 py-4 text-sm font-medium text-muted-foreground">{order.items}</td>
+                  <td className="px-6 py-4 text-sm font-bold text-foreground">{order.total}</td>
                   <td className="px-6 py-4">
                     <span className={cn(
-                      "px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider",
+                      "px-3 py-1 rounded-full text-sm tracking-wider",
                       order.status === "Delivered" ? "bg-green-50 dark:bg-green-500/10 text-green-600" :
                       order.status === "Out for Delivery" ? "bg-blue-50 dark:bg-blue-500/10 text-blue-600" : "bg-muted text-muted-foreground"
                     )}>
@@ -124,16 +124,16 @@ export default function OrdersPage() {
                   </td>
                   <td className="px-6 py-4">
                     <span className={cn(
-                      "flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider w-fit",
-                      order.otp === "Verified" ? "bg-green-500 text-white shadow-sm" : "bg-muted text-muted-foreground"
+                      "flex items-center gap-1.5 px-3 py-1 rounded-full text-sm w-fit",
+                      order.otp === "Verified" ? "bg-green-400/40 text-white shadow-sm" : "bg-muted text-muted-foreground"
                     )}>
                       {order.otp === "Verified" && <CheckCircle2 size={10} />}
                       {order.otp}
                     </span>
                   </td>
-                  <td className="px-6 py-4 text-[10px] font-medium text-muted-foreground whitespace-nowrap">{order.date}</td>
+                  <td className="px-6 py-4 text-sm text-muted-foreground whitespace-nowrap">{order.date}</td>
                   <td className="px-6 py-4 text-right">
-                    <button className="p-2 text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-all opacity-0 group-hover:opacity-100">
+                    <button className="p-2 text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-all">
                       <MoreVertical size={16} />
                     </button>
                   </td>

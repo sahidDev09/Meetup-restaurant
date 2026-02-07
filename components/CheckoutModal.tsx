@@ -28,6 +28,9 @@ export default function CheckoutModal() {
       const total = subtotal + tax + 60;
 
       // 1. Insert order into 'orders' table matching the user's schema
+      // Generate a 4-digit OTP for delivery verification
+      const deliveryOtp = Math.floor(1000 + Math.random() * 9000).toString();
+      
       const { error: orderError } = await supabase
         .from('orders')
         .insert({
@@ -40,7 +43,9 @@ export default function CheckoutModal() {
           tax: tax,
           total: total,
           payment_method: 'Cash on Delivery',
-          status: 'pending'
+          status: 'pending',
+          delivery_otp: deliveryOtp,
+          otp_verified: false
         });
 
       if (orderError) throw orderError;

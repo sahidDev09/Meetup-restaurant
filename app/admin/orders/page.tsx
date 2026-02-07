@@ -634,8 +634,8 @@ export default function OrdersPage() {
 
   return (
     <>
-      <div className="space-y-8 animate-in fade-in duration-500">
-        <div className="flex items-end justify-between">
+      <div className="h-full flex flex-col gap-8 animate-in fade-in duration-500">
+        <div className="flex items-end justify-between flex-shrink-0">
           <div>
             <h1 className="text-3xl font-black text-foreground">Orders</h1>
             <p className="text-muted-foreground mt-1">Manage and track all customer orders with OTP verification.</p>
@@ -650,7 +650,7 @@ export default function OrdersPage() {
           </button>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 flex-shrink-0">
           {statusConfig.map((stat, index) => (
             <motion.div
               key={stat.label}
@@ -674,8 +674,8 @@ export default function OrdersPage() {
           ))}
         </div>
 
-        <div className="bg-card rounded-[32px] border border-border shadow-sm overflow-hidden transition-colors">
-          <div className="p-6 border-b border-border flex flex-col md:flex-row gap-4 items-center justify-between">
+        <div className="flex-1 min-h-0 bg-card rounded-[32px] border border-border shadow-sm overflow-hidden transition-colors flex flex-col">
+          <div className="p-6 border-b border-border flex flex-col md:flex-row gap-4 items-center justify-between flex-shrink-0">
             <div className="relative w-full md:w-96">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={18} />
               <input 
@@ -703,7 +703,7 @@ export default function OrdersPage() {
             </div>
           </div>
 
-          <div className="overflow-x-auto">
+          <div className="flex-1 overflow-auto">
             {loading ? (
               <div className="flex items-center justify-center py-20">
                 <Loader2 className="w-8 h-8 animate-spin text-primary" />

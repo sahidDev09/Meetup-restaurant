@@ -133,7 +133,7 @@ function OrderDetailsModal({
             
             <div className="p-6 space-y-6 overflow-y-auto max-h-[60vh]">
               <div className="space-y-3">
-                <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-wider">Customer Info</h3>
+                <h3 className="text-sm font-bold text-muted-foreground uppercase">Customer Info</h3>
                 <div className="bg-muted/50 rounded-2xl p-4 space-y-2">
                   <p className="text-foreground font-bold">{order.customer_name}</p>
                   <p className="text-sm text-muted-foreground">{order.customer_phone}</p>
@@ -142,7 +142,7 @@ function OrderDetailsModal({
               </div>
 
               <div className="space-y-3">
-                <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-wider">Order Items</h3>
+                <h3 className="text-sm font-bold text-muted-foreground uppercase">Order Items</h3>
                 <div className="bg-muted/50 rounded-2xl p-4 space-y-3">
                   {order.items?.map((item, index) => (
                     <div key={index} className="flex items-center justify-between">
@@ -159,7 +159,7 @@ function OrderDetailsModal({
               </div>
 
               <div className="space-y-3">
-                <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-wider">Payment Summary</h3>
+                <h3 className="text-sm font-bold text-muted-foreground uppercase">Payment Summary</h3>
                 <div className="bg-muted/50 rounded-2xl p-4 space-y-2">
                   <div className="flex justify-between text-sm">
                     <span className="text-muted-foreground">Subtotal</span>
@@ -657,13 +657,9 @@ export default function OrdersPage() {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: index * 0.05 }}
-              onClick={() => setStatusFilter(statusFilter === stat.key ? null : stat.key)}
-              className={cn(
-                "flex items-center gap-4 p-4 bg-card rounded-2xl border shadow-sm transition-all cursor-pointer hover:shadow-md",
-                statusFilter === stat.key ? "border-primary ring-2 ring-primary/20" : "border-border"
-              )}
+              className="flex items-center gap-4 p-4 bg-card rounded-2xl border border-border shadow-sm"
             >
-              <div className={cn("p-3 rounded-xl transition-colors", stat.bg, stat.color)}>
+              <div className={cn("p-3 rounded-xl", stat.bg, stat.color)}>
                 <stat.icon size={20} />
               </div>
               <div>
@@ -688,18 +684,27 @@ export default function OrdersPage() {
             </div>
             
             <div className="flex items-center gap-3 w-full md:w-auto">
-              <button 
-                onClick={() => setStatusFilter(null)}
-                className={cn(
-                  "flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2 bg-card border rounded-xl text-sm font-bold transition-all",
-                  !statusFilter 
-                    ? "border-primary text-primary" 
-                    : "border-border text-muted-foreground hover:text-foreground"
-                )}
-              >
-                <Filter size={16} />
-                {statusFilter ? formatStatus(statusFilter) : "All Status"}
-              </button>
+              <div className="relative">
+                <div className="flex items-center gap-2">
+                  <Filter size={16} className="text-muted-foreground" />
+                  <select
+                    value={statusFilter || ""}
+                    onChange={(e) => setStatusFilter(e.target.value || null)}
+                    className="appearance-none bg-card border border-border rounded-xl px-4 py-2 pr-8 text-sm font-medium text-foreground outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all cursor-pointer"
+                  >
+                    <option value="">All Status</option>
+                    <option value="pending">Pending</option>
+                    <option value="preparing">Preparing</option>
+                    <option value="prepared">Prepared</option>
+                    <option value="out_for_delivery">Out for Delivery</option>
+                    <option value="delivered">Delivered</option>
+                    <option value="cancelled">Cancelled</option>
+                  </select>
+                  <svg className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-muted-foreground" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <path d="M2.5 4.5L6 8L9.5 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -746,7 +751,7 @@ export default function OrdersPage() {
                       <td className="px-6 py-4 text-sm font-bold text-foreground">৳{order.total}</td>
                       <td className="px-6 py-4">
                         <span className={cn(
-                          "px-3 py-1 rounded-full text-sm tracking-wider",
+                          "px-3 py-1 rounded-full text-sm",
                           order.status === "delivered" ? "bg-green-50 dark:bg-green-500/10 text-green-600" :
                           order.status === "out_for_delivery" ? "bg-blue-50 dark:bg-blue-500/10 text-blue-600" : 
                           order.status === "preparing" ? "bg-rose-50 dark:bg-rose-500/10 text-rose-600" :

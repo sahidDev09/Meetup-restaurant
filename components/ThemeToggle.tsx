@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import gsap from "gsap"
 
 export function ThemeToggle() {
-  const { theme, setTheme } = useTheme()
+  const { setTheme, resolvedTheme } = useTheme()
   const isClient = React.useSyncExternalStore(
     () => () => {},
     () => true,
@@ -16,7 +16,7 @@ export function ThemeToggle() {
   const buttonRef = React.useRef<HTMLButtonElement>(null)
 
   const toggleTheme = (event: React.MouseEvent) => {
-    const nextTheme = theme === "dark" ? "light" : "dark"
+    const nextTheme = resolvedTheme === "dark" ? "light" : "dark"
     
     // Create a reveal circle effect using GSAP
     const x = event.clientX
@@ -76,13 +76,13 @@ export function ThemeToggle() {
     >
       <AnimatePresence mode="wait" initial={true}>
         <motion.div
-          key={theme}
+          key={resolvedTheme}
           initial={{ y: 20, opacity: 0, rotate: -45 }}
           animate={{ y: 0, opacity: 1, rotate: 0 }}
           exit={{ y: -20, opacity: 0, rotate: 45 }}
           transition={{ duration: 0.3, ease: "easeInOut" }}
         >
-          {theme === "dark" ? (
+          {resolvedTheme === "dark" ? (
             <Sun className="w-5 h-5 text-yellow-400 fill-yellow-400/20" />
           ) : (
             <Moon className="w-5 h-5 text-indigo-600 fill-indigo-600/20" />

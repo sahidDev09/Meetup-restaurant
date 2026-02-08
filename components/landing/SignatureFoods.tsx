@@ -125,7 +125,7 @@ export default function SignatureFoods() {
                       fill
                       className="object-cover group-hover:scale-110 transition-transform duration-700"
                     />
-                    <div className="absolute top-4 right-4 bg-background/80 backdrop-blur-md px-3 py-1 rounded-full flex items-center gap-1 border border-border/50">
+                    <div className="absolute top-6 right-6 bg-background/90 dark:bg-muted/80 backdrop-blur-xl px-4 py-2 rounded-2xl flex items-center gap-2 border border-border/50 shadow-xl">
                       <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
                       <span className="text-sm font-bold">{food.rating || 5.0}</span>
                     </div>

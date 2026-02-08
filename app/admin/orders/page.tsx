@@ -655,7 +655,7 @@ export default function OrdersPage() {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: index * 0.05 }}
-              className="flex items-center gap-4 p-4 bg-card rounded-2xl border border-border shadow-sm"
+              className="flex items-center gap-4 p-4 bg-card dark:bg-muted/40 rounded-2xl border border-border shadow-sm"
             >
               <div className={cn("p-3 rounded-xl", stat.bg, stat.color)}>
                 <stat.icon size={20} />

@@ -13,9 +13,20 @@ import { cn } from "@/lib/utils";
 import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 import AddItemModal from "./components/AddItemModal";
+import Image from "next/image";
+
+interface MenuItem {
+  id: number;
+  name: string;
+  category: string;
+  price: string;
+  status: string;
+  image: string;
+  description: string;
+}
 
 export default function MenuPage() {
-  const [items, setItems] = useState<any[]>([]);
+  const [items, setItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -28,7 +39,7 @@ export default function MenuPage() {
         .order('created_at', { ascending: false });
 
       if (error) throw error;
-      setItems(data || []);
+      setItems((data as MenuItem[]) || []);
     } catch (error) {
       console.error("Error fetching menu items:", error);
     } finally {
@@ -57,7 +68,7 @@ export default function MenuPage() {
     }
   };
 
-  const toggleStatus = async (item: any) => {
+  const toggleStatus = async (item: MenuItem) => {
     const newStatus = item.status === "Available" ? "Unavailable" : "Available";
     try {
       const { error } = await supabase
@@ -102,7 +113,7 @@ export default function MenuPage() {
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
         {stats.map((stat) => (
-          <div key={stat.label} className="p-6 bg-card rounded-3xl border border-border shadow-sm transition-colors">
+          <div key={stat.label} className="p-6 bg-card dark:bg-muted/40 rounded-3xl border border-border shadow-sm transition-colors">
             <p className="text-2xl font-black text-foreground">{loading ? "..." : stat.value}</p>
             <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mt-1">{stat.label}</p>
           </div>
@@ -141,7 +152,7 @@ export default function MenuPage() {
               className="bg-card rounded-[32px] overflow-hidden border border-border shadow-sm hover:shadow-xl dark:hover:shadow-orange-500/5 transition-all group"
             >
               <div className="h-56 relative overflow-hidden">
-                <img src={item.image} alt={item.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                <Image src={item.image} alt={item.name} fill className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                 <div className="absolute top-4 right-4">
                   <span className={cn(
                     "px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider shadow-lg backdrop-blur-md",

@@ -89,7 +89,7 @@ export default function Features() {
                 ease: [0.21, 0.47, 0.32, 0.98] 
               }}
               whileHover={{ y: -10 }}
-              className={`group relative p-10 rounded-[2.5rem] bg-gradient-to-br ${feature.gradient} border ${feature.border} backdrop-blur-xl transition-all duration-500 hover:shadow-2xl ${feature.glow}`}
+              className={`group relative p-10 rounded-[2.5rem] bg-gradient-to-br ${feature.gradient} border ${feature.border} backdrop-blur-xl dark:bg-muted/40 transition-all duration-500 hover:shadow-2xl ${feature.glow}`}
             >
               <div className="relative z-10 flex flex-col items-center text-center">
                 <div className={`w-20 h-20 ${feature.iconBg} rounded-[1.5rem] flex items-center justify-center mb-8 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-inner`}>

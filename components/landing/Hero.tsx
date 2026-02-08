@@ -136,13 +136,13 @@ export default function Hero() {
                 transition={{ delay: 0.6 }}
                 className="flex flex-wrap gap-4 pt-4"
               >
-                <div className="flex items-center gap-3 bg-card/50 backdrop-blur-sm px-5 py-3 rounded-2xl border border-border/50 hover:border-primary/30 transition-colors duration-300 group/stat">
+                <div className="flex items-center gap-3 bg-card/50 dark:bg-muted/50 backdrop-blur-sm px-5 py-3 rounded-2xl border border-border/50 hover:border-primary/30 transition-colors duration-300 group/stat">
                   <div className="p-2 bg-primary/10 rounded-xl group-hover/stat:bg-primary/20 transition-colors duration-300">
                     <Clock className="h-4 w-4 text-primary" />
                   </div>
                   <span className="text-sm font-semibold text-foreground/90">30 min delivery</span>
                 </div>
-                <div className="flex items-center gap-3 bg-card/50 backdrop-blur-sm px-5 py-3 rounded-2xl border border-border/50 hover:border-primary/30 transition-colors duration-300 group/stat">
+                <div className="flex items-center gap-3 bg-card/50 dark:bg-muted/50 backdrop-blur-sm px-5 py-3 rounded-2xl border border-border/50 hover:border-primary/30 transition-colors duration-300 group/stat">
                   <div className="p-2 bg-primary/10 rounded-xl group-hover/stat:bg-primary/20 transition-colors duration-300">
                     <MapPin className="h-4 w-4 text-primary" />
                   </div>
@@ -194,7 +194,7 @@ export default function Hero() {
                       ease: "easeInOut"
                     }
                   }}
-                  className="absolute -left-12 top-10 z-20 bg-background/80 backdrop-blur-md p-3 rounded-2xl border border-border shadow-xl flex items-center gap-3 min-w-[180px]"
+                  className="absolute -left-12 top-10 z-20 bg-background/80 dark:bg-muted/80 backdrop-blur-md p-3 rounded-2xl border border-border shadow-xl flex items-center gap-3 min-w-[180px]"
                 >
                   <div className="relative h-10 w-10 rounded-full overflow-hidden border-2 border-primary/20">
                     <Image
@@ -229,7 +229,7 @@ export default function Hero() {
                     y: { duration: 3.5, repeat: Infinity, ease: "easeInOut" },
                     rotate: { duration: 4, repeat: Infinity, ease: "easeInOut" }
                   }}
-                  className="absolute -right-4 top-20 z-20 bg-background/80 backdrop-blur-md w-12 h-12 rounded-full border border-border shadow-lg flex items-center justify-center text-2xl"
+                  className="absolute -right-4 top-20 z-20 bg-background/80 dark:bg-muted/80 backdrop-blur-md w-12 h-12 rounded-full border border-border shadow-lg flex items-center justify-center text-2xl"
                 >
                   😋
                 </motion.div>
@@ -248,7 +248,7 @@ export default function Hero() {
                     y: { duration: 5, repeat: Infinity, ease: "easeInOut" },
                     rotate: { duration: 4.5, repeat: Infinity, ease: "easeInOut" }
                   }}
-                  className="absolute left-10 bottom-10 z-20 bg-background/80 backdrop-blur-md w-14 h-14 rounded-full border border-border shadow-lg flex items-center justify-center text-3xl"
+                  className="absolute left-10 bottom-10 z-20 bg-background/80 dark:bg-muted/80 backdrop-blur-md w-14 h-14 rounded-full border border-border shadow-lg flex items-center justify-center text-3xl"
                 >
                   😊
                 </motion.div>

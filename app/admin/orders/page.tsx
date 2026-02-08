@@ -15,9 +15,16 @@ import {
   Eye,
   X,
   Key,
-  ShieldCheck,
+  Bell,
+  Check,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import {
+  AnimatedInputOTP,
+  AnimatedInputOTPGroup,
+  AnimatedInputOTPSlot,
+  AnimatedInputOTPSeparator,
+} from "@/components/ui/smoothui/animated-o-t-p-input";
 import { useEffect, useState, useCallback, useRef } from "react";
 import { supabase } from "@/lib/supabase";
 
@@ -195,39 +202,17 @@ function OTPVerificationModal({
   onClose: () => void;
   onVerify: (orderId: string) => void;
 }) {
-  const [otp, setOtp] = useState(['', '', '', '']);
+  const [otp, setOtp] = useState('');
   const [error, setError] = useState('');
   const [verifying, setVerifying] = useState(false);
-  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
-
-  const handleChange = (index: number, value: string) => {
-    if (!/^\d*$/.test(value)) return;
-    
-    const newOtp = [...otp];
-    newOtp[index] = value.slice(-1);
-    setOtp(newOtp);
-    setError('');
-
-    // Auto-focus next input
-    if (value && index < 3) {
-      inputRefs.current[index + 1]?.focus();
-    }
-  };
-
-  const handleKeyDown = (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Backspace' && !otp[index] && index > 0) {
-      inputRefs.current[index - 1]?.focus();
-    }
-  };
 
   const handleVerify = async () => {
-    const enteredOtp = otp.join('');
-    if (enteredOtp.length !== 4) {
+    if (otp.length !== 4) {
       setError('Please enter all 4 digits');
       return;
     }
 
-    if (enteredOtp !== order?.delivery_otp) {
+    if (otp !== order?.delivery_otp) {
       setError('Invalid OTP. Please try again.');
       return;
     }
@@ -235,12 +220,12 @@ function OTPVerificationModal({
     setVerifying(true);
     await onVerify(order.id);
     setVerifying(false);
-    setOtp(['', '', '', '']);
+    setOtp('');
     onClose();
   };
 
   const handleClose = () => {
-    setOtp(['', '', '', '']);
+    setOtp('');
     setError('');
     onClose();
   };
@@ -255,84 +240,117 @@ function OTPVerificationModal({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="absolute inset-0 bg-black/60"
+            className="absolute inset-0 bg-black/40 backdrop-blur-sm"
             onClick={handleClose}
           />
           <motion.div
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            className="relative bg-card border border-border rounded-3xl shadow-2xl w-full max-w-md overflow-hidden"
-            style={{ backgroundColor: 'var(--card)' }}
+            className="relative bg-white dark:bg-[#1C1C1C] rounded-[32px] shadow-2xl w-full max-w-md overflow-hidden"
           >
-            <div className="p-6 border-b border-border flex items-center justify-between">
-              <div>
-                <h2 className="text-xl font-black text-foreground">Verify Delivery OTP</h2>
-                <p className="text-sm text-muted-foreground mt-0.5">
-                  Enter the 4-digit OTP provided by the customer
-                </p>
+            {/* Header */}
+            <div className="p-8 pb-4 flex items-start justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full flex items-center justify-center">
+                  <Key className="text-[#FF8A3D]" size={28} />
+                </div>
+                <h2 className="text-2xl font-bold text-[#2D2D2D] dark:text-white">Verify Delivery OTP</h2>
               </div>
               <button
                 onClick={handleClose}
-                className="p-2 hover:bg-muted rounded-xl transition-colors"
+                className="p-2 hover:bg-muted rounded-full transition-colors mt-1"
               >
                 <X size={20} className="text-muted-foreground" />
               </button>
             </div>
             
-            <div className="p-6 space-y-6">
-              <div className="text-center">
-                <p className="text-sm text-muted-foreground">
-                  Customer: <span className="text-foreground font-bold">{order.customer_name}</span>
+            <div className="px-8 pb-8 space-y-8">
+              <div className="space-y-2">
+                <p className="text-center text-lg text-muted-foreground">
+                  Enter the 4-digit OTP provided by the customer
+                </p>
+                <p className="text-center text-lg text-muted-foreground">
+                  Customer: <span className="text-[#1C1C1C] dark:text-white font-bold">{order.customer_name}</span>
                 </p>
               </div>
 
-              <div className="flex justify-center gap-3">
-                {otp.map((digit, index) => (
-                  <input
-                    key={index}
-                    ref={(el) => { inputRefs.current[index] = el; }}
-                    type="text"
-                    inputMode="numeric"
-                    maxLength={1}
-                    value={digit}
-                    onChange={(e) => handleChange(index, e.target.value)}
-                    onKeyDown={(e) => handleKeyDown(index, e)}
-                    className={cn(
-                      "w-14 h-14 text-center text-2xl font-black bg-muted/50 border-2 rounded-xl outline-none transition-all",
-                      error ? "border-red-500" : "border-border focus:border-primary"
-                    )}
-                  />
-                ))}
+              <div className="flex justify-center">
+                <AnimatedInputOTP
+                  maxLength={4}
+                  value={otp}
+                  onChange={(value) => {
+                    setOtp(value);
+                    setError('');
+                  }}
+                >
+                  <div className="flex items-center gap-3">
+                    <AnimatedInputOTPGroup className="gap-3">
+                      {[0, 1].map((index) => (
+                        <AnimatedInputOTPSlot
+                          key={index}
+                          index={index}
+                          className={cn(
+                            "w-16 h-16 text-3xl font-black rounded-2xl border-2 transition-all duration-200",
+                            "bg-white dark:bg-transparent border-gray-100 dark:border-gray-800",
+                            "data-[active=true]:border-[#FF8A3D] data-[active=true]:ring-0",
+                            error && "border-red-500"
+                          )}
+                        />
+                      ))}
+                    </AnimatedInputOTPGroup>
+                    <AnimatedInputOTPSeparator />
+                    <AnimatedInputOTPGroup className="gap-3">
+                      {[2, 3].map((index) => (
+                        <AnimatedInputOTPSlot
+                          key={index}
+                          index={index}
+                          className={cn(
+                            "w-16 h-16 text-3xl font-black rounded-2xl border-2 transition-all duration-200",
+                            "bg-white dark:bg-transparent border-gray-100 dark:border-gray-800",
+                            "data-[active=true]:border-[#FF8A3D] data-[active=true]:ring-0",
+                            error && "border-red-500"
+                          )}
+                        />
+                      ))}
+                    </AnimatedInputOTPGroup>
+                  </div>
+                </AnimatedInputOTP>
               </div>
 
               {error && (
-                <p className="text-center text-sm text-red-500 font-medium">{error}</p>
+                <p className="text-center text-sm text-red-500 font-medium -mt-4">{error}</p>
               )}
 
-              <p className="text-center text-xs text-muted-foreground flex items-center justify-center gap-1.5">
-                <ShieldCheck size={14} />
-                Review notification will be sent 2 min after delivery
-              </p>
+              <div className="flex items-center justify-center gap-2 text-muted-foreground bg-gray-50 dark:bg-muted/30 py-3 rounded-2xl">
+                <Bell size={18} />
+                <p className="text-sm font-medium">
+                  Review notification will be sent 2 min after delivery
+                </p>
+              </div>
 
-              <div className="flex gap-3">
+              <div className="flex gap-4 pt-2">
                 <button
                   onClick={handleClose}
-                  className="flex-1 px-4 py-3 bg-muted text-foreground font-bold rounded-xl hover:bg-muted/80 transition-all"
+                  className="flex-1 bg-white dark:bg-transparent border border-gray-200 dark:border-gray-800 text-[#2D2D2D] dark:text-white font-bold rounded-2xl hover:bg-gray-50 dark:hover:bg-muted/50 transition-all"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={handleVerify}
-                  disabled={verifying}
-                  className="flex-1 px-4 py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold rounded-xl hover:opacity-90 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+                  disabled={verifying || otp.length !== 4}
+                  className="flex-1 px-4 py-4 bg-green-500 text-white font-bold rounded-2xl hover:opacity-90 transition-all disabled:opacity-50 flex items-center justify-center gap-2 shadow-lg shadow-green-500/20"
                 >
                   {verifying ? (
-                    <Loader2 size={18} className="animate-spin" />
+                    <Loader2 size={20} className="animate-spin" />
                   ) : (
-                    <CheckCircle2 size={18} />
+                    <>
+                      <div className="w-5 h-5 px-2 py-2 rounded-full border-[1.5px] border-white flex items-center justify-center">
+                        <Check size={10} className="stroke-[4]" />
+                      </div>
+                      Verify & Complete
+                    </>
                   )}
-                  Verify & Complete Delivery
                 </button>
               </div>
             </div>

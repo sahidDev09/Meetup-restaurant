@@ -153,11 +153,11 @@ export default function SignatureFoods() {
                           price: food.price,
                           image: food.image
                         })}
-                        className={`relative overflow-hidden bg-gradient-to-r ${style.gradient} text-white hover:text-black transition-all duration-500 rounded-full px-6 py-6 group/btn shadow-lg shadow-primary/20 border-none`}
+                        className={`relative overflow-hidden btn-primary-gradient text-white hover:text-black transition-all duration-500 rounded-full px-6 py-6 group/btn shadow-lg shadow-primary/20 border-none`}
                       >
                         <span className="relative z-10 flex items-center gap-2 font-bold transition-colors">
                           <ShoppingCart className="w-5 h-5" />
-                          Add to Cart
+                          Order
                         </span>
                         {/* White overlay on hover */}
                         <div className="absolute inset-0 bg-white translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500 ease-out" />

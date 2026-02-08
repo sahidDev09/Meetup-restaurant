@@ -95,9 +95,9 @@ export default function MenuContent() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
               onClick={() => setActiveCategory(category)}
-              className={`px-8 py-3 rounded-full text-sm font-bold transition-all duration-300 border-2 ${
+              className={`px-8 py-3 rounded-full text-sm font-bold transition-all duration-300 ${
                 activeCategory === category
-                  ? "bg-primary border-primary text-white shadow-lg shadow-primary/30 scale-105"
+                  ? "bg-primary border-primary text-white shadow-bg-primary scale-105"
                   : "bg-background border-border text-foreground hover:border-primary/50"
               }`}
             >
@@ -172,7 +172,7 @@ export default function MenuContent() {
                             price: item.price,
                             image: item.image
                           })}
-                          className={`relative overflow-hidden bg-gradient-to-r ${style.gradient} text-white hover:text-black transition-all duration-500 rounded-2xl px-4 py-2 group/btn shadow-xl shadow-primary/10 border-none h-auto`}
+                          className={`relative overflow-hidden btn-primary-gradient text-white hover:text-black transition-all duration-500 rounded-2xl px-4 py-2 group/btn shadow-xl shadow-primary/10 border-none h-auto`}
                         >
                           <span className="relative z-10 flex items-center gap-2 font-black text-sm uppercase tracking-wider">
                             <ShoppingCart className="w-5 h-5 transition-transform group-hover/btn:-translate-y-1 group-hover/btn:translate-x-1" />

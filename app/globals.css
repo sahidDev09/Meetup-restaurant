@@ -48,7 +48,7 @@
 }
 
 :root {
-  --primary: oklch(0.205 0 0);
+  --primary: oklch(0.627 0.218 29.23);
   --primary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.556 0 0);
@@ -86,8 +86,8 @@
 .dark {
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
+  --primary: oklch(0.627 0.218 29.23);
+  --primary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.269 0 0);
   --muted-foreground: oklch(0.708 0 0);
   --card: oklch(0.205 0 0);
@@ -134,6 +134,14 @@ body {
 
   .btn-primary-gradient {
     @apply bg-gradient-to-r from-[#FF4D1C] to-[#FF8A00] text-white shadow-lg shadow-orange-500/20 hover:shadow-orange-500/40 transition-all duration-300;
+  }
+
+  .bg-primary {
+    @apply bg-gradient-to-r from-[#FF4D1C] to-[#FF8A00];
+  }
+
+  .shadow-bg-primary {
+    @apply shadow-lg shadow-orange-500/30;
   }
 }
 

@@ -108,7 +108,7 @@ function OrderDetailsModal({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+            className="absolute inset-0 bg-black/60"
             onClick={onClose}
           />
           <motion.div
@@ -116,6 +116,7 @@ function OrderDetailsModal({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             className="relative bg-card border border-border rounded-3xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-hidden"
+            style={{ backgroundColor: 'var(--card)' }}
           >
             <div className="p-6 border-b border-border flex items-center justify-between">
               <div>
@@ -254,7 +255,7 @@ function OTPVerificationModal({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+            className="absolute inset-0 bg-black/60"
             onClick={handleClose}
           />
           <motion.div
@@ -262,6 +263,7 @@ function OTPVerificationModal({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             className="relative bg-card border border-border rounded-3xl shadow-2xl w-full max-w-md overflow-hidden"
+            style={{ backgroundColor: 'var(--card)' }}
           >
             <div className="p-6 border-b border-border flex items-center justify-between">
               <div>
@@ -453,7 +455,8 @@ function ActionDropdown({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: -10 }}
             transition={{ duration: 0.15 }}
-            className="absolute right-0 top-full mt-2 w-56  border border-border rounded-2xl shadow-xl overflow-hidden z-50"
+            className="absolute right-0 top-full mt-2 w-56 border border-border rounded-2xl shadow-xl overflow-hidden z-50"
+            style={{ backgroundColor: 'var(--card)' }}
           >
             <div className="p-2 space-y-1">
               {getActionButtons().map((action, index) => (

@@ -453,7 +453,7 @@ function ActionDropdown({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: -10 }}
             transition={{ duration: 0.15 }}
-            className="absolute right-0 top-full mt-2 w-56  border border-border rounded-2xl shadow-xl overflow-hidden z-50"
+            className="absolute right-0 top-full mt-2 w-56 bg-white dark:bg-neutral-900 border border-border rounded-2xl shadow-xl overflow-hidden z-50"
           >
             <div className="p-2 space-y-1">
               {getActionButtons().map((action, index) => (

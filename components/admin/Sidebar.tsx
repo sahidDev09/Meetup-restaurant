@@ -9,13 +9,15 @@ import {
   BarChart3, 
   Users, 
   Settings,
-  ArrowLeft
+  ArrowLeft,
+  Calendar
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const menuItems = [
   { icon: LayoutDashboard, label: "Dashboard", href: "/admin/dashboard" },
   { icon: ShoppingBag, label: "Orders", href: "/admin/orders" },
+  { icon: Calendar, label: "Reservation", href: "/admin/reservations" },
   { icon: UtensilsCrossed, label: "Menu Items", href: "/admin/menu" },
   { icon: BarChart3, label: "Analytics", href: "/admin/analytics" },
   { icon: Users, label: "Staff", href: "/admin/staff" },

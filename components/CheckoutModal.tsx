@@ -197,12 +197,24 @@ export default function CheckoutModal() {
                       <p className="text-sm text-muted-foreground">Order Tracking ID</p>
                       <p className="text-xl font-mono font-bold text-primary">{orderId}</p>
                     </div>
-                    <Button
-                      onClick={closeModal}
-                      className="bg-primary hover:opacity-90 rounded-full px-12 py-6 text-lg font-bold"
-                    >
-                      Browse More Food
-                    </Button>
+                    <div className="flex flex-col gap-3 w-full max-w-sm">
+                      <Button
+                        onClick={() => {
+                          closeModal();
+                          window.location.href = `/track?id=${orderId}`;
+                        }}
+                        className="bg-primary hover:opacity-90 rounded-2xl py-6 text-lg font-bold w-full"
+                      >
+                        Track Your Order
+                      </Button>
+                      <Button
+                        variant="outline"
+                        onClick={closeModal}
+                        className="rounded-2xl py-6 text-lg font-bold w-full border-border"
+                      >
+                        Browse More Food
+                      </Button>
+                    </div>
                   </motion.div>
                 )}
               </div>

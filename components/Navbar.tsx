@@ -58,10 +58,10 @@ export default function Navbar() {
           {/* Right side actions - Occupies right space */}
           <div className="flex-1 flex items-center justify-end space-x-4">
             <ThemeToggle />
-            <button className="hidden lg:flex items-center bg-primary text-white px-5 py-2.5 rounded-full font-medium hover:opacity-90 transition-all shadow-lg shadow-primary/20">
+            <Link href="/track" className="hidden lg:flex items-center bg-primary text-white px-5 py-2.5 rounded-full font-medium hover:opacity-90 transition-all shadow-lg shadow-primary/20">
               <MapPin className="w-4 h-4 mr-2" />
               Track Order
-            </button>
+            </Link>
             <button 
               onClick={() => setIsCartOpen(true)}
               className="p-2.5 text-foreground/80 hover:bg-muted rounded-full transition-all relative group"

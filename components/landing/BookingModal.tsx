@@ -22,6 +22,8 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
     phone: "",
     specialRequest: "",
   });
+  const [bookedSlots, setBookedSlots] = useState<string[]>([]);
+  const [isLoadingSlots, setIsLoadingSlots] = useState(false);
 
   const timeSlots = [
     "12:00 PM", "12:30 PM", "01:00 PM", "01:30 PM",
@@ -41,6 +43,35 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
     };
   }, [isOpen]);
 
+  // Fetch booked slots when date changes
+  useEffect(() => {
+    const fetchBookedSlots = async () => {
+      if (!isOpen) return;
+      
+      setIsLoadingSlots(true);
+      try {
+        const formattedDate = date.toLocaleDateString('en-CA');
+        const { data, error } = await supabase
+          .from('bookings')
+          .select('booking_time')
+          .eq('booking_date', formattedDate)
+          .eq('status', 'confirmed');
+
+        if (error) throw error;
+
+        if (data) {
+          setBookedSlots(data.map(b => b.booking_time));
+        }
+      } catch (error) {
+        console.error("Error fetching booked slots:", error);
+      } finally {
+        setIsLoadingSlots(false);
+      }
+    };
+
+    fetchBookedSlots();
+  }, [date, isOpen]);
+
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   // ... (previous useEffect remains)
@@ -56,7 +87,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
           email: formData.email,
           phone: formData.phone,
           guests: guests,
-          booking_date: date.toISOString().split('T')[0],
+          booking_date: date.toLocaleDateString('en-CA'),
           booking_time: time,
           special_request: formData.specialRequest,
         });
@@ -195,30 +226,45 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                                     <input 
                                       type="date" 
                                       className="w-full bg-muted border-none rounded-2xl pl-14 pr-4 py-4 text-foreground font-medium focus:ring-2 focus:ring-primary/40 transition-all cursor-pointer appearance-none"
-                                      value={date.toISOString().split('T')[0]}
+                                      value={date.toLocaleDateString('en-CA')} // Returns YYYY-MM-DD
                                       onChange={(e) => setDate(new Date(e.target.value))}
-                                      min={new Date().toISOString().split('T')[0]}
+                                      min={new Date().toLocaleDateString('en-CA')}
                                     />
                                   </div>
                                 </div>
 
                                 <div>
-                                  <label className="text-sm font-semibold mb-3 block text-foreground/70">Preferred Time</label>
+                                  <label className="text-sm font-semibold mb-3 block text-foreground/70 flex items-center justify-between">
+                                    Preferred Time
+                                    {isLoadingSlots && <span className="text-[10px] text-primary animate-pulse font-bold uppercase tracking-widest">Checking Availability...</span>}
+                                  </label>
                                   <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
-                                    {timeSlots.map((t) => (
-                                      <button
-                                        key={t}
-                                        type="button"
-                                        onClick={() => setTime(t)}
-                                        className={`py-3 px-1 text-xs font-bold rounded-xl border-2 transition-all duration-300 ${
-                                          time === t
-                                            ? "bg-primary border-primary text-white shadow-lg shadow-primary/30 scale-[1.02]"
-                                            : "bg-muted border-transparent text-muted-foreground hover:border-primary/30 hover:text-foreground"
-                                        }`}
-                                      >
-                                        {t}
-                                      </button>
-                                    ))}
+                                    {timeSlots.map((t) => {
+                                      const isBooked = bookedSlots.includes(t);
+                                      return (
+                                        <button
+                                          key={t}
+                                          type="button"
+                                          disabled={isBooked}
+                                          onClick={() => setTime(t)}
+                                          className={`py-3 px-1 text-xs font-bold rounded-xl border-2 transition-all duration-300 relative ${
+                                            time === t
+                                              ? "bg-primary border-primary text-white shadow-lg shadow-primary/30 scale-[1.02]"
+                                              : isBooked
+                                              ? "bg-muted border-transparent text-muted-foreground/30 cursor-not-allowed"
+                                              : "bg-muted border-transparent text-muted-foreground hover:border-primary/30 hover:text-foreground"
+                                          }`}
+                                        >
+                                          {t}
+                                          {isBooked && (
+                                            <span className="absolute -top-1 -right-1 flex h-3 w-3">
+                                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                                              <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+                                            </span>
+                                          )}
+                                        </button>
+                                      );
+                                    })}
                                   </div>
                                 </div>
 
@@ -320,6 +366,15 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                                     />
                                   </div>
+                                </div>
+                                <div>
+                                  <label className="text-sm font-semibold mb-2 block text-foreground/70">Special Request (Optional)</label>
+                                  <textarea
+                                    placeholder="e.g. Birthday celebration, window seat, food allergies..."
+                                    className="w-full bg-muted border-none rounded-2xl px-6 py-4 text-foreground font-medium focus:ring-2 focus:ring-primary/40 transition-all resize-none h-24"
+                                    value={formData.specialRequest}
+                                    onChange={(e) => setFormData({ ...formData, specialRequest: e.target.value })}
+                                  />
                                 </div>
                               </div>
                             </div>

@@ -16,7 +16,10 @@ import {
   ShoppingBag,
   ArrowRight,
   Loader2,
-  AlertCircle
+  AlertCircle,
+  RefreshCw,
+  Star,
+  Bike
 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { cn } from "@/lib/utils";
@@ -133,8 +136,22 @@ function TrackOrderContent() {
 
   const currentStepIndex = getCurrentStepIndex();
 
+  const getDeliveryMan = (orderNumber: string) => {
+    const deliveryMen = [
+      { name: "Rakib Hossain", phone: "01712-345678", rating: 4.8 },
+      { name: "Sabbir Ahmed", phone: "01812-987654", rating: 4.9 },
+      { name: "Ariful Islam", phone: "01912-456123", rating: 4.7 },
+      { name: "Kamrul Hasan", phone: "01512-789456", rating: 4.6 },
+    ];
+    // Use order number as seed for consistency
+    const seed = orderNumber.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+    return deliveryMen[seed % deliveryMen.length];
+  };
+
+  const deliveryMan = order ? getDeliveryMan(order.order_number) : null;
+
   return (
-    <div className="min-h-screen bg-background pt-32 pb-20">
+    <div className="min-h-screen bg-background pt-12 pb-20">
       <div className="container-custom max-w-4xl">
         {/* Header */}
         <div className="text-center mb-12">
@@ -172,15 +189,26 @@ function TrackOrderContent() {
               placeholder="Enter Order ID (e.g. ORD-1234)"
               value={orderIdInput}
               onChange={(e) => setOrderIdInput(e.target.value)}
-              className="block w-full pl-16 pr-32 py-6 bg-card border-2 border-border rounded-[2rem] text-xl font-bold focus:outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/10 transition-all shadow-xl shadow-black/5"
+              className="block w-full pl-16 pr-44 py-6 bg-card border-2 border-border rounded-[2rem] text-xl font-bold focus:outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/10 transition-all shadow-xl shadow-black/5"
             />
-            <button
-              type="submit"
-              disabled={loading}
-              className="absolute right-3 inset-y-3 px-8 bg-primary text-white rounded-[1.5rem] font-black hover:opacity-90 transition-all active:scale-95 disabled:opacity-50 flex items-center gap-2"
-            >
-              {loading ? <Loader2 className="animate-spin w-5 h-5" /> : "Track"}
-            </button>
+            <div className="absolute right-3 inset-y-3 flex items-center gap-2">
+              <button 
+                type="button"
+                onClick={() => order && fetchOrder(order.order_number)}
+                disabled={loading || !order}
+                className="p-4 bg-muted hover:bg-muted/80 text-muted-foreground rounded-[1.2rem] transition-all active:scale-95 disabled:opacity-0 disabled:pointer-events-none"
+                title="Refresh Status"
+              >
+                <RefreshCw size={20} className={cn(loading && "animate-spin")} />
+              </button>
+              <button
+                type="submit"
+                disabled={loading}
+                className="px-8 bg-primary text-white h-full rounded-[1.5rem] font-black hover:opacity-90 transition-all active:scale-95 disabled:opacity-50 flex items-center gap-2"
+              >
+                {loading ? <Loader2 className="animate-spin w-5 h-5" /> : "Track"}
+              </button>
+            </div>
           </div>
           <AnimatePresence>
             {error && (
@@ -209,7 +237,7 @@ function TrackOrderContent() {
             >
               {/* Status Stepper */}
               <div className="bg-card border border-border rounded-[2.5rem] p-8 md:p-12 shadow-2xl relative overflow-hidden">
-                <div className="absolute top-0 right-0 p-8">
+                <div className="absolute top-0 right-0 p-8 flex items-center gap-3">
                    <div className="bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-black">
                      {order.order_number}
                    </div>
@@ -305,6 +333,46 @@ function TrackOrderContent() {
                       </div>
                     </div>
                   </div>
+
+                  {/* Delivery Man Info (Only if out for delivery or delivered) */}
+                  {(order.status === 'out_for_delivery' || order.status === 'delivered') && deliveryMan && (
+                    <motion.div 
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="bg-card border border-border rounded-[2rem] p-8 shadow-xl relative overflow-hidden group"
+                    >
+                      <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-full -mr-10 -mt-10 group-hover:scale-110 transition-transform duration-500" />
+                      
+                      <h3 className="text-xl font-black mb-6 flex items-center gap-2">
+                        <Bike className="text-primary" /> Delivery Partner
+                      </h3>
+                      
+                      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                        <div className="flex items-center gap-4">
+                          <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center">
+                            <User size={32} className="text-primary" />
+                          </div>
+                          <div>
+                            <p className="text-lg font-black">{deliveryMan.name}</p>
+                            <div className="flex items-center gap-1.5 text-amber-500">
+                              <Star size={14} fill="currentColor" />
+                              <span className="text-sm font-bold">{deliveryMan.rating} Rating</span>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div className="flex items-center gap-3">
+                          <a 
+                            href={`tel:${deliveryMan.phone}`}
+                            className="flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-3 bg-primary text-white font-black rounded-xl hover:opacity-90 transition-all shadow-lg shadow-primary/20"
+                          >
+                            <Phone size={18} />
+                            Call Rider
+                          </a>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
 
                   {/* OTP Card (Only if out for delivery) */}
                   {order.status === 'out_for_delivery' && (

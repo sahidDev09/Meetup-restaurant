@@ -26,7 +26,7 @@ export default function LoginPage() {
     // Artificial delay for premium feel
     await new Promise(resolve => setTimeout(resolve, 800));
 
-    if (email === "iamsahidofficial99@gmail.com" && password === "meetup#2026") {
+    if (email === "meetupofficial@gmail.com" && password === "meetup1234") {
       localStorage.setItem("admin_token", "authenticated");
       document.cookie = "admin_session=true; path=/";
       router.push("/admin/dashboard");

@@ -2,9 +2,19 @@
 
 import Link from "next/link";
 import { Facebook, Instagram, Twitter, Mail, MapPin, Phone } from "lucide-react";
+import Image from "next/image";
+import { useTheme } from "next-themes";
+import * as React from "react";
+import { cn } from "@/lib/utils";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const { resolvedTheme } = useTheme();
+  const isClient = React.useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
 
   return (
     <footer className="bg-card border-t border-border pt-20 pb-10">
@@ -13,8 +23,13 @@ const Footer = () => {
           {/* Brand Section */}
           <div className="space-y-6">
             <Link href="/" className="text-2xl font-bold tracking-tighter flex items-center gap-2">
-              <span className="text-primary text-3xl">M</span>
-              <span className="text-foreground">EETUP</span>
+              <Image 
+                src="/assests/meetu-plogo.png" 
+                alt="navlogo" 
+                width={100} 
+                height={100}
+                className={cn("transition-all duration-300", isClient && resolvedTheme === "dark" && "invert")}
+              />
             </Link>
             <p className="text-muted-foreground leading-relaxed">
               Experience the finest culinary delights at Meetup. We bring together fresh ingredients, expert chefs, and a warm atmosphere to create unforgettable dining moments.

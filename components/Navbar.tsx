@@ -7,10 +7,19 @@ import { ThemeToggle } from "./ThemeToggle";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useCart } from "@/context/CartContext";
+import Image from "next/image";
+import { useTheme } from "next-themes";
+import * as React from "react";
 
 export default function Navbar() {
   const pathname = usePathname();
   const { totalItems, setIsCartOpen } = useCart();
+  const { resolvedTheme } = useTheme();
+  const isClient = React.useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
 
   const navLinks = [
     { name: "Home", href: "/" },
@@ -25,7 +34,13 @@ export default function Navbar() {
           {/* Logo - Occupies left space */}
           <div className="flex-1 flex items-center">
             <Link href="/" className="text-2xl font-bold text-primary">
-              Meetup
+              <Image 
+                src="/assests/meetu-plogo.png" 
+                alt="navlogo" 
+                width={100} 
+                height={100}
+                className={cn("transition-all duration-300", isClient && resolvedTheme === "dark" && "invert")}
+              />
             </Link>
           </div>
 

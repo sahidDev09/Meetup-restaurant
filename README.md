@@ -1,5 +1,7 @@
 # Meetup - Premium Restaurant & Food Delivery System
 
+![Hero Banner](public/screenshots/Hero.jpeg)
+
 [![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.0-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
 [![Supabase](https://img.shields.io/badge/Supabase-Backend-3ECF8E?style=for-the-badge&logo=supabase)](https://supabase.com/)
@@ -39,19 +41,19 @@
 
 ## 📸 Screenshots
 
-| Home Page (Dark) | Signature Foods (Light) |
+| Home Page (Dark) | Home Page (Light) |
 | :---: | :---: |
-| ![Home](./public/screenshots/home.png) | ![Menu](./public/screenshots/menu.png) |
+| ![Home](public/screenshots/Hero.jpeg) | ![Menu](public/screenshots/hero-light.jpeg) |
 
 | Admin Dashboard | Order Management |
 | :---: | :---: |
-| ![Dashboard](./public/screenshots/dashboard.png) | ![Orders](./public/screenshots/orders.png) |
+| ![Dashboard](public/screenshots/dashboard.png) | ![Orders](public/screenshots/order-dash.png) |
 
 | Order Tracking |
 | :---: |
-| ![Tracking](./public/screenshots/tracking.png) |
+| ![Tracking](public/screenshots/track-order.png) |
 
-> **Note**: To ensure these images appear, please save your screenshots as `home.png`, `menu.png`, `dashboard.png`, `orders.png`, and `tracking.png` inside the `./public/screenshots/` directory.
+> **Note**: Screenshots are located in the `public/screenshots/` directory.
 
 ---
 

@@ -12,7 +12,7 @@
 ---
 
 ## 🚀 Live Preview
-[View Live Demo](https://meetup-restaurant.vercel.app)
+[View Live Demo](https://meetup-restaurant.vercel.app/)
 
 ---
 
